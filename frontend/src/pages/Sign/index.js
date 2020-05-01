@@ -21,6 +21,7 @@ export default function Sign() {
   return (
     <>
       <Container>
+<<<<<<< Updated upstream
         <img className="logo" src={logo} alt="Tonvee" />
         <div className="presentation-text">
           <span className="first-span">
@@ -29,6 +30,12 @@ export default function Sign() {
           <h1>
             A Nice heading <br /> goes here
           </h1>
+=======
+        <div className="presentation-text">
+          <img className="logo" src={logo}></img>
+          <span className="first-span">Lorem ipsum dolor sit amet, consetetur sadipscing</span>
+          <h1>A Nice heading <br/> goes here</h1>
+>>>>>>> Stashed changes
           <span className="second-span">Acompanhe eventos em tempo real</span>
         </div>
         <div className="forms-wrapper">

@@ -13,11 +13,17 @@ max-width: 100%;
 .logo{
     position: absolute;
     top: 50px;
-    left: 50px;
+    left: 0;
 }
 
+
 .presentation-text{
-    color: red;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
 
     .first-span{
         font-size: 26px;
