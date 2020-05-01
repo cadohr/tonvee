@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 3333:3333
+    volumes:
+      - ./backend/src:/usr/src/app/src
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    tty: true
