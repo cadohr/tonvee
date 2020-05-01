@@ -14,7 +14,7 @@ export default function RouteWrapper({
 }) {
   let { signed } = store.getState().auth;
   // TODO: remove this line
-  signed = true; // alterar para false para mexer no login e true para mexer no resto
+  signed = false; // alterar para false para mexer no login e true para mexer no resto
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;

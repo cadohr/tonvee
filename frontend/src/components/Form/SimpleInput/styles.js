@@ -11,16 +11,19 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  border: 1px solid black;
+  border: 1px solid #fff;
   border-radius: 4px;
-  width: 95%;
-  height: 45px;
-  padding: 0 15px;
-  background-color: transparent;
+  width: 100%;
+  padding: 0 20px;
+  height: 60px;
   color: black;
+  border-radius: 2px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 15px;
 
   &::placeholder {
-    color: black;
+    color: #73a1c2;
   }
   /* margin-bottom: 10px; */
 `;
