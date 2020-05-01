@@ -18,8 +18,12 @@ export function* createRoom({ payload }) {
 
     // history.push('/encomendas');
   } catch (error) {
+<<<<<<< HEAD
     toast.error('Falha na autenticação, verifique seus dados');
     yield put(createRoomFail());
+=======
+    // yield put(signFailure());
+>>>>>>> generate access token
   }
 }
 
