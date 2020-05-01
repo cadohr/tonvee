@@ -14,7 +14,6 @@ export const Content = styled.label`
   flex-direction: column;
 
   border: 2px dashed ${colors.lightGray};
-  border-radius: 50%;
 
   height: 150px;
   width: 150px;
@@ -27,7 +26,8 @@ export const Content = styled.label`
   }
 
   img {
-    border-radius: 50%;
+    max-width: 145px;
+    max-height: 145px;
   }
 
   input {

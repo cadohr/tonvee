@@ -13,9 +13,15 @@ export const Label = styled.label`
 export const Input = styled.input`
   border: 1px solid ${colors.lightGray};
   border-radius: 4px;
-
+  width: 95%;
   height: 45px;
   padding: 0 15px;
+  background-color: transparent;
+  color: #ffffff;
+
+  &::placeholder {
+    color: #ffffff;
+  }
   /* margin-bottom: 10px; */
 `;
 

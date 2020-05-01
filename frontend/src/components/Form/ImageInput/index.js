@@ -36,7 +36,7 @@ export default function ImageInput({ name, ...rest }) {
 
   return (
     <Container>
-      <Content htmlFor="avatar">
+      <Content htmlFor={name}>
         {preview ? (
           <img src={preview} alt="Preview" width="150" height="150" />
         ) : (
@@ -46,7 +46,7 @@ export default function ImageInput({ name, ...rest }) {
           </>
         )}
         <input
-          id="avatar"
+          id={name}
           type="file"
           ref={inputRef}
           onChange={handlePreview}

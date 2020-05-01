@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input } from '~/components/Form'
+import { Form } from '@unform/web';
+import { Input } from '~/components/Form';
 import { Container, Tabs, Button } from './styles';
 
 export default function Sign() {
@@ -8,14 +9,14 @@ export default function Sign() {
       <Container>
         <Tabs>Login</Tabs>
         <Tabs>Cadastrar</Tabs>
-        <form>
+        <Form>
           <Input label="email" name="email" />
           <Input label="password" name="password" />
           <Button>Entrar</Button>
-        </form>
-        <a href="">Esqueceu a senha?</a>
+        </Form>
+        <a href="#">Esqueceu a senha?</a>
         <span>Ou</span>
       </Container>
     </>
-  )
+  );
 }

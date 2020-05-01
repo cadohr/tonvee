@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useField } from '@unform/core';
-
+import propTypes from 'prop-types';
 import { Label, Input, Error } from './styles';
 
 export default function SimpleInput({ name, label, ...rest }) {
@@ -14,7 +14,6 @@ export default function SimpleInput({ name, label, ...rest }) {
       path: 'value',
     });
   }, [fieldName, registerField]);
-
   return (
     <>
       <Label htmlFor={fieldName}>{label}</Label>
@@ -28,3 +27,8 @@ export default function SimpleInput({ name, label, ...rest }) {
     </>
   );
 }
+
+SimpleInput.propTypes = {
+  name: propTypes.string.isRequired,
+  label: propTypes.string.isRequired,
+};
