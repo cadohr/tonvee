@@ -9,9 +9,11 @@ import history from '~/services/history';
 
 export function* signIn({ payload }) {
   try {
-    const { email, pass } = payload;
-
-    const response = yield firebase.auth().signInWithEmailAndPassword(email, pass);
+    const { email, password } = payload;
+    console.log(payload);
+    const response = yield firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
 
     console.log(response);
 
