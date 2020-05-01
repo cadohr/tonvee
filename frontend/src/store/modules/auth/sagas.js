@@ -1,5 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
+import firebase from '~/services/Firebase';
 
 import { signInSuccess, signFailure } from './actions';
 
@@ -8,17 +9,19 @@ import history from '~/services/history';
 
 export function* signIn({ payload }) {
   try {
-    const { email, password } = payload;
+    const { email, pass } = payload;
 
-    const response = yield call(api.post, 'sessions', { email, password });
+    const response = yield firebase.auth().signInWithEmailAndPassword(email, pass);
 
-    const { token, user } = response.data;
+    console.log(response);
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+    // const { token, user } = response.data;
 
-    yield put(signInSuccess(token, user));
+    // api.defaults.headers.authorization = `Bearer ${token}`;
 
-    history.push('/encomendas');
+    // yield put(signInSuccess(token, user));
+
+    // history.push('/encomendas');
   } catch (error) {
     toast.error('Falha na autenticação, verifique seus dados');
     yield put(signFailure());
