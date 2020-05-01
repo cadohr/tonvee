@@ -21,7 +21,7 @@ export default function Sign() {
   return (
     <>
       <Container>
-        <img src={logo} alt="Tonvee" />
+        <img className="logo" src={logo} alt="Tonvee" />
         <div className="presentation-text">
           <span className="first-span">
             Lorem ipsum dolor sit amet, consetetur sadipscing
