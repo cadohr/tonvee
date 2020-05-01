@@ -16,7 +16,7 @@ export default function Sign() {
   return (
     <>
       <Container>
-        <img src={logo}></img>
+        <img className="logo" src={logo}></img>
         <div className="presentation-text">
           <span className="first-span">Lorem ipsum dolor sit amet, consetetur sadipscing</span>
           <h1>A Nice heading <br/> goes here</h1>

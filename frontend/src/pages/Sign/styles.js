@@ -10,6 +10,12 @@ width: 100vw;
 height: 100vh;
 max-width: 100%;
 
+.logo{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
 .presentation-text{
     color: red;
 
