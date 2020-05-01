@@ -1,6 +1,11 @@
 import produce from 'immer';
 
-const INITIAL_STATE = { token: null, signed: false, loading: false };
+const INITIAL_STATE = {
+  accessToken: null,
+  token: null,
+  signed: false,
+  loading: false,
+};
 
 export default function auth(state = INITIAL_STATE, action) {
   return produce(state, (draft) => {
@@ -14,6 +19,7 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         draft.signed = true;
         draft.token = action.payload.token;
+        draft.accessToken = action.payload.accessToken;
         break;
       }
 

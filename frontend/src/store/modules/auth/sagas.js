@@ -1,9 +1,12 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { jwt } from 'twilio';
 
 import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
-import api from '~/services/api';
 import history from '~/services/history';
+import api from '~/services/api';
+
+import { encodeOpaqueId } from '~/utils';
 
 export function* signIn({ payload }) {
   try {
@@ -15,7 +18,24 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, user));
+    const videoGrant = new jwt.AccessToken.VideoGrant({
+      room: `${user.id}:arenax`,
+    });
+
+    const accessToken = new jwt.AccessToken(
+      process.env.REACT_APP_TWILIO_ACCOUNT_SID,
+      process.env.REACT_APP_TWILIO_API_KEY_SID,
+      process.env.REACT_APP_TWILIO_API_KEY_SECRET,
+      { identity: user.id },
+    );
+
+    if (user.type === 'speaker') {
+      accessToken.addGrant(videoGrant);
+    }
+
+    const opaqueAccessToken = encodeOpaqueId(accessToken.toJwt());
+
+    yield put(signInSuccess(token, user, accessToken.toJwt()));
 
     history.push('/lobby');
   } catch (error) {
