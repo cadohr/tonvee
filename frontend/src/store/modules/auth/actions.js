@@ -19,7 +19,7 @@ export function signUpRequest(name, email, password) {
   };
 }
 
-export function signUpSuccess(token, user) {
+export function signUpSuccess() {
   return {
     type: '@auth/SIGN_UP_SUCCESS',
   };

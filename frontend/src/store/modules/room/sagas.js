@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-
-import { createRoomSuccess } from './actions';
+import { toast } from 'react-toastify';
+import { createRoomSuccess, createRoomFail } from './actions';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -19,7 +19,7 @@ export function* createRoom({ payload }) {
     // history.push('/encomendas');
   } catch (error) {
     toast.error('Falha na autenticação, verifique seus dados');
-    yield put(signFailure());
+    yield put(createRoomFail());
   }
 }
 

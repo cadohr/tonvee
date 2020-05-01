@@ -11,3 +11,9 @@ export function createRoomSuccess(room) {
     payload: { room },
   };
 }
+
+export function createRoomFail() {
+  return {
+    type: '@room/CREATE_ROOM_FAIL',
+  };
+}

@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
-import { signInSuccess, signUpSuccess } from './actions';
+import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
 import api from '~/services/api';
 import history from '~/services/history';
