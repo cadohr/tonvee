@@ -4,6 +4,8 @@ import RoomController from './app/controllers/RoomController';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 
+import authMiddleware from './app/middelwares/auth';
+
 const routes = new Router();
 
 routes.get('/', (req, res) => {
@@ -13,5 +15,11 @@ routes.get('/', (req, res) => {
 routes.post('/sessions', SessionController.store);
 
 routes.post('/users', UserController.store);
+
+routes.use(authMiddleware);
+
+routes.get('/segura', (req, res) => {
+  res.json({ message: 'segura' });
+});
 
 export default routes;

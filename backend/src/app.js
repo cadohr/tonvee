@@ -6,6 +6,8 @@ import routes from './routes';
 
 import './database';
 
+import './lib/Passport';
+
 class App {
   constructor() {
     this.server = express();

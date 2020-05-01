@@ -17,11 +17,11 @@ class SessionController {
       return res.status(400).json({ error: 'Password is wrong' });
     }
 
-    const { name } = user;
+    const { id, name } = user;
 
     return res.json({
       user: { name, email },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ sub: id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
