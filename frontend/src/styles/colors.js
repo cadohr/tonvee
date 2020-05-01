@@ -1,4 +1,4 @@
 export default {
   white: '',
-  primary: '',
+  primary: '#7159c1',
 };

@@ -11,7 +11,7 @@ class UserController {
       type: 'participant',
     });
 
-    return res.json({ name: user.name, email: user.email });
+    return res.json({ name: user.name, email: user.email, type: user.type });
   }
 }
 
