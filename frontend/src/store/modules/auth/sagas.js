@@ -12,14 +12,15 @@ export function* signIn({ payload }) {
 
     const { data } = yield call(api.post, 'sessions', { email, password });
 
-    const { token, user } = data;
+    const { token, user, accessToken } = data;
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, user));
+    yield put(signInSuccess(token, user, accessToken));
 
     history.push('/lobby');
   } catch (error) {
+    toast.error('Falha no login, verifique seus dados');
     yield put(signFailure());
   }
 }

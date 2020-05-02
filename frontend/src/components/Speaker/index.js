@@ -1,9 +1,23 @@
 import React from 'react';
 
-import SpeakerInfo from '~/components/SpeakerInfo';
+import useRoomSpeaker from '~/hooks/useRoomSpeaker';
 
-// import { Container } from './styles';
+import SpeakerInfo from '~/components/SpeakerInfo';
+import SpeakerTracks from '../SpeakerTracks';
 
 export default function Speaker() {
-  return <SpeakerInfo></SpeakerInfo>;
+  const speaker = useRoomSpeaker();
+
+  console.log(speaker);
+
+  return (
+    <SpeakerInfo speaker={speaker}>
+      <SpeakerTracks
+        speaker={speaker}
+        disableAudio
+        enableShareScreen={false}
+        videoPriority="high"
+      />
+    </SpeakerInfo>
+  );
 }

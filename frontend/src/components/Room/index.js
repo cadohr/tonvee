@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import api from '~/services/api';
+import Speaker from '~/components/Speaker';
 
 import { Container } from './styles';
 
-export default function Room({ sid }) {
-  const [room, setRoom] = useState({});
-
-  useEffect(() => {
-    async function loadRoom() {
-      const { data } = await api.get(`/rooms/${sid}`);
-
-      console.tron.log(data);
-
-      setRoom(data);
-    }
-
-    loadRoom();
-  }, [sid]);
-
-  return <Container>{room.uniqueName}</Container>;
+export default function Room() {
+  return (
+    <Container>
+      <Speaker />
+    </Container>
+  );
 }

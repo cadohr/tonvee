@@ -7,7 +7,6 @@ export default function useRoomState() {
 
   useEffect(() => {
     const setRoomState = () => {
-      console.tron.log('room state', room.state);
       setState(room.state || 'disconnected');
     };
 

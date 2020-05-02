@@ -1,19 +1,19 @@
-export function createRoomRequest(name) {
+export function connectRoomRequest(accessToken, name) {
   return {
-    type: '@room/CREATE_ROOM_REQUEST',
-    payload: { name },
+    type: '@room/CONNECT_ROOM_REQUEST',
+    payload: { accessToken, name },
   };
 }
 
-export function createRoomSuccess(room) {
+export function connectRoomSuccess(room) {
   return {
-    type: '@room/CREATE_ROOM_SUCCESS',
+    type: '@room/CONNECT_ROOM_SUCCESS',
     payload: { room },
   };
 }
 
-export function createRoomFailure() {
+export function connectRoomFailure() {
   return {
-    type: '@room/CREATE_ROOM_FAILURE',
+    type: '@room/CONNECT_ROOM_FAILURE',
   };
 }

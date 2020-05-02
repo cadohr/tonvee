@@ -25,7 +25,6 @@ export default function useRoom(localTracks, onError, options) {
           const disconnect = () => newRoom.disconnect();
 
           newRoom.once('disconnected', () => {
-            console.tron.log('refresh');
             // Reset the room only after all other `disconnected` listeners have been called.
             // setTimeout(() => setRoom(new EventEmitter()));
             // window.removeEventListener('beforeunload', disconnect);

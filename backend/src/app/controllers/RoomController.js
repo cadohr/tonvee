@@ -2,7 +2,7 @@ import Twilio from '../../lib/Twilio';
 
 class RoomController {
   async index(req, res) {
-    const rooms = await Twilio.rooms.list();
+    const rooms = await Twilio.video().rooms.list();
 
     res.json(rooms);
   }
@@ -18,7 +18,7 @@ class RoomController {
   async store(req, res) {
     const { turn = false, type = 'group', name } = req.body;
 
-    const room = await Twilio.rooms.create({
+    const room = await Twilio.video().rooms.create({
       uniqueName: name,
       type,
       enableTurn: turn,

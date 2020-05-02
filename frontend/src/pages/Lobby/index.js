@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import api from '~/services/api';
-import Room from '~/components/Room';
+import history from '~/services/history';
+
+import useVideoContext from '~/hooks/useVideoContext';
+
+import liveLogo from '~/assets/live.svg';
+import EventMap from '~/assets/event-map.svg';
+import techIcon from '~/assets/iconsMap/tech.svg';
+import varejoIcon from '~/assets/iconsMap/varejo.svg';
+import financasIcon from '~/assets/iconsMap/financas.svg';
+import inovacaoIcon from '~/assets/iconsMap/inovacao.svg';
+
 import {
   Container,
   LefContainer,
@@ -18,27 +30,30 @@ import {
   CardText,
   Title,
 } from './styles';
-import liveLogo from '../../assets/live.svg';
-import EventMap from '../../assets/event-map.svg';
-import techIcon from '../../assets/iconsMap/tech.svg';
-import varejoIcon from '../../assets/iconsMap/varejo.svg';
-import financasIcon from '../../assets/iconsMap/financas.svg';
-import inovacaoIcon from '../../assets/iconsMap/inovacao.svg';
 
 export default function Lobby() {
-  // const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
-  // useEffect(() => {
-  //   async function loadRooms() {
-  //     const { data } = await api.get('/rooms');
+  const { connect } = useVideoContext();
 
-  //     console.tron.log(data);
+  useEffect(() => {
+    async function loadRooms() {
+      const { data } = await api.get('/rooms');
 
-  //     setRooms(data);
-  //   }
+      setRooms(data);
+    }
 
-  //   loadRooms();
-  // }, []);
+    loadRooms();
+  }, []);
+
+  async function handleRoomClick(room) {
+    await connect(accessToken);
+
+    const roomName = room.uniqueName.split(':')[1];
+
+    history.push(`/room/${roomName}`);
+  }
 
   return (
     <Container>
@@ -60,11 +75,11 @@ export default function Lobby() {
               Veja as paletras <br /> que estão no ar!
             </Text>
           </TextContent>
-          {/* <RoomList>
-        {rooms.map((room) => (
-          <Room sid={room.sid} />
-        ))}
-      </RoomList> */}
+          <RoomList>
+            {rooms.map((room) => (
+              <h1 onClick={() => handleRoomClick(room)}>{room.uniqueName}</h1>
+            ))}
+          </RoomList>
         </LiveRooms>
         <EventContent>
           <MapEvent>

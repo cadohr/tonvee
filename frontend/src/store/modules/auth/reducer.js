@@ -2,6 +2,7 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
   token: null,
+  accessToken: null,
   signed: false,
   loading: false,
 };
@@ -18,6 +19,7 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         draft.signed = true;
         draft.token = action.payload.token;
+        draft.accessToken = action.payload.accessToken;
         break;
       }
 

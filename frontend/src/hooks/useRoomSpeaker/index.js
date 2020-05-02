@@ -1,5 +1,9 @@
-import useRoom from '~/hooks/useRoom';
+import useVideoContext from '~/hooks/useVideoContext';
+import useParticipants from '~/hooks/useParticipants';
 
 export default function useRoomSpeaker() {
-  return <div />;
+  const { room } = useVideoContext();
+  const participants = useParticipants();
+
+  return room.localParticipant || participants[0];
 }
