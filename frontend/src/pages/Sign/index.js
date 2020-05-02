@@ -5,6 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Input } from '~/components/Form';
 import { signInRequest, signUpRequest } from '~/store/modules/auth/actions';
 import { Container, Button } from './styles';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import 'react-tabs/style/react-tabs.css';
 
@@ -21,10 +22,9 @@ export default function Sign() {
 
   return (
     <>
-      <Tabs></Tabs>
       <Container>
-        <img className="logo" src={logo} alt="Tonvee" />
         <div className="presentation-text">
+        <img className="logo" src={logo} alt="Tonvee" />
           <span className="first-span">
             Lorem ipsum dolor sit amet, consetetur sadipscing
           </span>
@@ -45,9 +45,7 @@ export default function Sign() {
                   <Input placeholder="Email" name="email" type="email" />
                   <Input placeholder="Senha" name="password" type="password" />
                   <Button>Entrar</Button>
-                  <a className="forgot-password" href="/alefe">
-                    Esqueceu a senha?
-                  </a>
+                  <Link className="forgot-password" to="/profile">Esqueceu a senha?</Link>
                 </Form>
               </TabPanel>
               <TabPanel>
@@ -55,7 +53,7 @@ export default function Sign() {
                   <Input placeholder="Name" name="name" type="text" />
                   <Input placeholder="Email" name="email" type="email" />
                   <Input placeholder="Senha" name="password" type="password" />
-                  <Button>Entrar</Button>
+                  <Button>Cadastrar</Button>
                 </Form>
               </TabPanel>
             </Tabs>
