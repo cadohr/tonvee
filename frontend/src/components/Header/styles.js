@@ -28,7 +28,7 @@ export const UserProfiler = styled.div`
 
 export const Logout = styled.div`
   margin: 0 15px;
-
+  cursor: pointer;
   img {
     max-width: 39px;
     max-height: 39px;
