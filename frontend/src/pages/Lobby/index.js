@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import useVideoContext from '~/hooks/useVideoContext';
+import api from '~/services/api';
 
-import history from '~/services/history';
+import Room from '~/components/Room';
 
-import { Container } from './styles';
+import { Container, RoomList } from './styles';
 
 export default function Lobby() {
-  const { connect } = useVideoContext();
+  const [rooms, setRooms] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  useEffect(() => {
+    async function loadRooms() {
+      const { data } = await api.get('/rooms');
 
-    connect(process.env.REACT_APP_TWILIO_ACCESS_TOKEN);
+      console.tron.log(data);
 
-    history.push('/arena/cadoh:arena-x');
-  }
+      setRooms(data);
+    }
+
+    loadRooms();
+  }, []);
 
   return (
     <Container>
       <h1>Lobby</h1>
 
-      <button onClick={handleSubmit}>Join Room</button>
+      <RoomList>
+        {rooms.map((room) => (
+          <Room sid={room.sid} />
+        ))}
+      </RoomList>
     </Container>
   );
 }

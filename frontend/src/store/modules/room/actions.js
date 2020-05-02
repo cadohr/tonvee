@@ -12,8 +12,8 @@ export function createRoomSuccess(room) {
   };
 }
 
-export function createRoomFail() {
+export function createRoomFailure() {
   return {
-    type: '@room/CREATE_ROOM_FAIL',
+    type: '@room/CREATE_ROOM_FAILURE',
   };
 }

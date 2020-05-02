@@ -16,6 +16,11 @@ export default function room(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@room/CREATE_ROOM_FAILURE': {
+        draft.loading = false;
+        break;
+      }
+
       default:
     }
   });

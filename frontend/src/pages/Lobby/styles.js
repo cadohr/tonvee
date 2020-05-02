@@ -14,3 +14,5 @@ export const Container = styled.div`
     color: white;
   }
 `;
+
+export const RoomList = styled.div``;

@@ -1,12 +1,10 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-// import { jwt } from 'twilio';
-
-import { signInSuccess, signUpSuccess, signFailure } from './actions';
+import { toast } from 'react-toastify';
 
 import history from '~/services/history';
 import api from '~/services/api';
 
-// import { encodeOpaqueId } from '~/utils';
+import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -18,27 +16,10 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    // const accessToken = new jwt.AccessToken(
-    //   process.env.REACT_APP_TWILIO_ACCOUNT_SID,
-    //   process.env.REACT_APP_TWILIO_API_KEY_SID,
-    //   process.env.REACT_APP_TWILIO_API_KEY_SECRET,
-    //   { identity: user.id, ttl: 86400 },
-    // );
-
-    // if (user.type === 'speaker') {
-    //   const videoGrant = new jwt.AccessToken.VideoGrant({
-    //     room: `${user.id}:arenax`,
-    //   });
-    //   accessToken.addGrant(videoGrant);
-    // }
-
-    // const opaqueAccessToken = encodeOpaqueId(accessToken.toJwt());
-
-    yield put(signInSuccess(token, user, ''));
+    yield put(signInSuccess(token, user));
 
     history.push('/lobby');
   } catch (error) {
-    console.tron.log(error);
     yield put(signFailure());
   }
 }
@@ -49,10 +30,12 @@ export function* signUp({ payload }) {
 
     yield call(api.post, 'users', { name, email, password });
 
+    toast.success('Cadastro realizado com sucesso');
     yield put(signUpSuccess());
 
     history.push('/');
   } catch (error) {
+    toast.error('Falha no cadastro, verifique seus dados');
     yield put(signFailure());
   }
 }
