@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import ArenaController from './app/controllers/ArenaController';
 import RoomController from './app/controllers/RoomController';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
@@ -19,6 +20,8 @@ routes.post('/sessions', SessionController.store);
 routes.post('/users', UserController.store);
 
 routes.use(authMiddleware);
+
+routes.get('/arenas', ArenaController.index);
 
 routes.get('/rooms', RoomController.index);
 routes.get('/rooms/:sid', RoomController.show);
