@@ -21,6 +21,9 @@ import {
 import liveLogo from '../../assets/live.svg';
 import EventMap from '../../assets/event-map.svg';
 import techIcon from '../../assets/iconsMap/tech.svg';
+import varejoIcon from '../../assets/iconsMap/varejo.svg';
+import financasIcon from '../../assets/iconsMap/financas.svg';
+import inovacaoIcon from '../../assets/iconsMap/inovacao.svg';
 
 export default function Lobby() {
   // const [rooms, setRooms] = useState([]);
@@ -65,14 +68,41 @@ export default function Lobby() {
         </LiveRooms>
         <EventContent>
           <MapEvent>
-            <CardMap>
+            <CardMap className="tech">
+              <CardText>
+                <Title>Arena Tech</Title>
+                <Text>
+                  lorem ipsum dolor sit <br /> amet consectetur
+                </Text>
+              </CardText>
+              <img src={techIcon} alt="tech" />
+            </CardMap>
+            <CardMap className="varejo">
+              <CardText>
+                <Title>Arena Varejo</Title>
+                <Text>
+                  lorem ipsum dolor sit <br /> amet consectetur
+                </Text>
+              </CardText>
+              <img src={varejoIcon} alt="varejo" />
+            </CardMap>
+            <CardMap className="inovacao">
               <CardText>
                 <Title>Arena Inovção</Title>
                 <Text>
                   lorem ipsum dolor sit <br /> amet consectetur
                 </Text>
               </CardText>
-              <img src={techIcon} alt="tech" />
+              <img src={inovacaoIcon} alt="Inovação" />
+            </CardMap>
+            <CardMap className="financas">
+              <CardText>
+                <Title>Arena Finanças</Title>
+                <Text>
+                  lorem ipsum dolor sit <br /> amet consectetur
+                </Text>
+              </CardText>
+              <img src={financasIcon} alt="fincancas" />
             </CardMap>
             <img src={EventMap} className="imageMap" alt="Mapa do Evento" />
           </MapEvent>
