@@ -68,19 +68,11 @@ export default function Lobby() {
               Veja as paletras <br /> que estão no ar!
             </Text>
           </TextContent>
-<<<<<<< Updated upstream
-          <RoomList>
-            {rooms.map((room) => (
-              <h1 onClick={() => handleRoomClick(room)}>{room.uniqueName}</h1>
-            ))}
-          </RoomList>
-=======
-          <div>
+          {/* <div>
             {arenas.map((arena) => (
               <p>{arena.name}</p>
             ))}
-          </div>
->>>>>>> Stashed changes
+          </div> */}
         </LiveRooms>
         <EventContent>
           <MapEvent>
