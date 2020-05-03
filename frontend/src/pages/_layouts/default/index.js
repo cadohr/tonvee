@@ -9,11 +9,9 @@ import { Wrapper } from './styles';
 export default function DefaultLayout({ children }) {
   return (
     <Wrapper>
-      <VideoProvider options={connectionOptions}>
-        <Header />
-        {children}
-        <Footer />
-      </VideoProvider>
+      <Header />
+      {children}
+      <Footer />
     </Wrapper>
   );
 }
