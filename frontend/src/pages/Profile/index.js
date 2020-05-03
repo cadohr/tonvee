@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from '@unform/web';
 import { Container, Title, Button, Formwrapper, Imagewrapper } from './styles';
 import { Input } from '~/components/Form';
+import Footer from '~/components/Footer';
 import Profimg from '../../assets/pageProfile/meu_perfil.svg';
 import Editpicture from '../../assets/pageProfile/editPicture.svg';
 import Picture from '../../assets/pageProfile/profilePicture.png';
@@ -36,6 +37,7 @@ export default function Profile() {
           </Form>
         </Formwrapper>
       </Container>
+      <Footer></Footer>
     </>
   );
 }

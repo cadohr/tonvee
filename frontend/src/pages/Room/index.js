@@ -74,4 +74,27 @@ export default function Room() {
       <Video playsInline autoPlay muted={isSpeaker} ref={videoRef} />
     </Container>
   );
+import React from 'react';
+import { Container, Header, Title, Stands, Wrapper, InnerTitle, Button, RommContent, Video, Chat} from "./styles";
+import CRoom from '~/components/Room';
+import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png'
+
+export default function Room() {
+  return (
+      <Container>
+        <Header>
+          <Title>Palestra: Estratégias de transformação digital - Cases</Title>
+          <Stands>
+            <Wrapper className="stands">
+              <InnerTitle>Visite o Stand virtual <br/> da Meio & Mensagem</InnerTitle>
+              <Button>Conhecer</Button>
+            </Wrapper>
+          </Stands>
+        </Header>
+        <RommContent>
+          <Video><img src={Videoplaceholder} alt="video"/></Video>
+          <Chat></Chat>
+        </RommContent>
+      </Container>
+  )
 }

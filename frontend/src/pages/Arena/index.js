@@ -7,6 +7,7 @@ import {
   ButtonNext,
   Image,
 } from 'pure-react-carousel';
+import Footer from '~/components/Footer';
 import Logo from '../../assets/inovacao_light.svg';
 import Calendario from '../../assets/pageArena/calendario.svg';
 import Live from '../../assets/pageArena/real_time.svg';
@@ -216,6 +217,7 @@ export default function Arena() {
           </CarouselProvider>
         </Comments>
       </Container>
+      <Footer></Footer>
     </div>
   );
 }
