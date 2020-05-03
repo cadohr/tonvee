@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const Container = styled.div`
   display: flex;
@@ -34,16 +34,38 @@ export const Button = styled.button`
   text-transform: uppercase;
 `;
 
+export const Imagewrapper = styled.div`
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+
+  div {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+
+    a {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      padding: 5px;
+      background: #fff;
+      border-radius: 50%;
+    }
+  }
+
+  .profile-picture {
+    max-width: 250px;
+  }
+`;
+
 export const Formwrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
   max-width: 900px;
-
-  img {
-    width: 50%;
-    max-width: 250px;
-  }
+  margin-bottom: 100px;
 
   form {
     width: 50%;
@@ -53,5 +75,6 @@ export const Formwrapper = styled.div`
     border-radius: 4px;
     border: solid 1px #0aa1a7;
     background-color: #ffffff;
+    height: 50px;
   }
 `;
