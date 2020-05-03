@@ -12,16 +12,23 @@ import techIcon from '~/assets/iconsMap/tech.svg';
 import varejoIcon from '~/assets/iconsMap/varejo.svg';
 import financasIcon from '~/assets/iconsMap/financas.svg';
 import inovacaoIcon from '~/assets/iconsMap/inovacao.svg';
+import placegolderShow from '~/assets/placeholders/placegolderShow.png';
+import felipe from '~/assets/placeholders/Felipe.png';
+
 
 import {
   Container,
   LefContainer,
   RightContainer,
   RoomList,
+  MusicLive,
   Hello,
   SubTitle,
   Text,
   LiveRooms,
+  LiveContent,
+  BackgroundStrip,
+  MiniLive,
   TextContent,
   Live,
   EventContent,
@@ -51,14 +58,17 @@ export default function Lobby() {
       <LefContainer>
         <Hello>OLÁ!</Hello>
         <SubTitle>Seja Bem-Vindo!</SubTitle>
-        <Text>
-          Não esqueça de usar o seu cupom <b>#TONVEE10</b> <br /> NO IFOOD PARA
-          O SEU COFEE BREAK!
+        <Text className="mainText">
+          Não esqueça de usar o seu cupom <b>#TONVEE10</b> <br /> no iFood para
+          o seu coffee break!
         </Text>
-        <ChatBox />
+        <MusicLive>
+          <img src={placegolderShow} alt="placeholder" />
+          <ChatBox />
+        </MusicLive>
       </LefContainer>
       <RightContainer>
-        <LiveRooms>
+        {/* <LiveRooms>
           <TextContent>
             <Live>
               <img src={liveLogo} alt="Live" />
@@ -72,6 +82,24 @@ export default function Lobby() {
               <p>{arena.name}</p>
             ))}
           </div>
+        </LiveRooms> */}
+
+        <LiveRooms>
+          <BackgroundStrip />
+          <LiveContent>
+            <TextContent>
+              <Live>
+                <img src={liveLogo} alt="Live" />
+              </Live>
+              <Text>
+                Veja as paletras <br /> que estão no ar!
+              </Text>
+            </TextContent>
+            <MiniLive><img src={felipe}/></MiniLive>
+            <MiniLive><img src={felipe}/></MiniLive>
+            <MiniLive><img src={felipe}/></MiniLive>
+            <MiniLive><img src={felipe}/></MiniLive>
+          </LiveContent>
         </LiveRooms>
         <EventContent>
           <MapEvent>
