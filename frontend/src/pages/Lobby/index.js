@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import api from '~/services/api';
 import history from '~/services/history';
 
+import ChatBox from '~/components/ChatBox';
+
 import useVideoContext from '~/hooks/useVideoContext';
 
 import liveLogo from '~/assets/live.svg';
@@ -64,6 +66,7 @@ export default function Lobby() {
           Não esqueça de usar o seu cupom <b>#TONVEE10</b> <br /> NO IFOOD PARA
           O SEU COFEE BREAK!
         </Text>
+        <ChatBox />
       </LefContainer>
       <RightContainer>
         <LiveRooms>
