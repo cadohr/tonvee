@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Form } from '@unform/web';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Link } from 'react-router-dom';
 import { Input } from '~/components/Form';
 import { signInRequest, signUpRequest } from '~/store/modules/auth/actions';
 import { Container, Button } from './styles';
-import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import 'react-tabs/style/react-tabs.css';
 
@@ -24,7 +24,7 @@ export default function Sign() {
     <>
       <Container>
         <div className="presentation-text">
-        <img className="logo" src={logo} alt="Tonvee" />
+          <img className="logo" src={logo} alt="Tonvee" />
           <span className="first-span">
             Lorem ipsum dolor sit amet, consetetur sadipscing
           </span>
@@ -45,7 +45,9 @@ export default function Sign() {
                   <Input placeholder="Email" name="email" type="email" />
                   <Input placeholder="Senha" name="password" type="password" />
                   <Button>Entrar</Button>
-                  <Link className="forgot-password" to="/profile">Esqueceu a senha?</Link>
+                  <Link className="forgot-password" to="/profile">
+                    Esqueceu a senha?
+                  </Link>
                 </Form>
               </TabPanel>
               <TabPanel>
