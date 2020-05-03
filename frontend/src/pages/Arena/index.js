@@ -8,14 +8,14 @@ import {
   Image,
 } from 'pure-react-carousel';
 import Logo from '../../assets/inovacao_light.svg';
-import Calendario from '../../assets/calendario.svg';
-import Live from '../../assets/real_time.svg';
-import Epoca from '../../assets/epoca.png';
-import Pegn from '../../assets/pegn.png';
-import Comentario from '../../assets/comentario.png';
-import Speaker from '../../assets/speakersPictures/speaker.png';
-import Leftarrow from '../../assets/left-arrow.png';
-import Rightarrow from '../../assets/right-arrow.png';
+import Calendario from '../../assets/pageArena/calendario.svg';
+import Live from '../../assets/pageArena/real_time.svg';
+import Epoca from '../../assets/pageArena/epoca.png';
+import Pegn from '../../assets/pageArena/pegn.png';
+import Comentario from '../../assets/pageArena/comentario.png';
+import Speaker from '../../assets/pageArena/speaker.png';
+import Leftarrow from '../../assets/pageArena/left-arrow.png';
+import Rightarrow from '../../assets/pageArena/right-arrow.png';
 
 import {
   Container,
