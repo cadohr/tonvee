@@ -5,8 +5,6 @@ import socket from '~/services/socket';
 
 import { ensureMediaPermissions } from '~/utils';
 
-import useUserMedia from '~/hooks/useUserMedia';
-
 import { Container, Video } from './styles';
 
 const config = {
@@ -23,20 +21,9 @@ export default function Room() {
     (state) => state.user.profile.type === 'speaker',
   );
 
-  const mediaStream = useUserMedia();
-  console.tron.log(mediaStream);
-
-  if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
-    videoRef.current.srcObject = mediaStream;
-  }
-
-  const [sstream, setSstream] = useState({});
   const [devices, setDevices] = useState([]);
   const [audioSource, setAudioSource] = useState();
   const [videoSource, setVideoSource] = useState();
-
-  const [peerConnections, setPeerConnections] = useState([]);
-  const [peerConnection, setPeerConnection] = useState({});
 
   function getDevices() {
     return ensureMediaPermissions().then(() =>
@@ -46,77 +33,55 @@ export default function Room() {
     );
   }
 
-  // useEffect(() => {
-  //   return () => {
-  //     navigator.mediaDevices.removeEventListener('devicechange', getDevices);
+  useEffect(() => {
+    return () => {
+      navigator.mediaDevices.removeEventListener('devicechange', getDevices);
 
-  //     stream.getTracks().forEach((track) => track.stop());
-  //   };
-  // }, []);
+      let stream = videoRef.current.srcObject;
 
-  // useEffect(() => {}, []);
+      stream.getTracks().forEach((track) => track.stop());
+    };
+  }, []);
+
+  const peerConnections = [];
 
   useEffect(() => {
     if (isSpeaker) {
       getDevices();
-      console.tron.log('is speaker');
 
       socket.on('viewer', (id) => {
-        setPeerConnection({ id, peer: new RTCPeerConnection(config) });
-        setPeerConnections((prevPeerConnections) => [
-          ...prevPeerConnections,
-          peerConnection,
-        ]);
+        const pc = new RTCPeerConnection(config);
+        peerConnections[id] = pc;
 
-        // let stream = videoRef.current.srcObject;
-        console.tron.log('sstream:', sstream);
-        let teste = videoRef.current.srcObject;
-        console.tron.log(
-          teste.getTracks().forEach((track) => console.tron.log(track)),
-        );
-        // stream
-        //   .getTracks()
-        //   .forEach((track) => peerConnection.peer.addTrack(track, stream));
+        let stream = videoRef.current.srcObject;
 
-        // peerConnection.peer.onicecandidate = (event) => {
-        //   if (event.candidate) {
-        //     socket.emit('candidate', id, event.candidate);
-        //   }
-        // };
+        stream.getTracks().forEach((track) => {
+          pc.addTrack(track, stream);
+        });
 
-        // peerConnection.peer
-        //   .createOffer()
-        //   .then((sdp) => peerConnection.peer.setLocalDescription(sdp))
-        //   .then(() => {
-        //     socket.emit('offer', id, peerConnection.peer.localDescription);
-        //   });
+        pc.onicecandidate = (event) => {
+          if (event.candidate) {
+            socket.emit('candidate', id, event.candidate);
+          }
+        };
+
+        pc.createOffer()
+          .then((sdp) => pc.setLocalDescription(sdp))
+          .then(() => {
+            socket.emit('offer', id, pc.localDescription);
+          });
       });
 
       socket.on('answer', (id, description) => {
-        peerConnections.forEach((p) => {
-          if (p.id === id) {
-            p.peer.setRemoteDescription(description);
-          }
-        });
         peerConnections[id].setRemoteDescription(description);
       });
 
       socket.on('candidate', (id, candidate) => {
-        peerConnections.forEach((p) => {
-          if (p.id === id) {
-            p.peer.addIceCandidate(new RTCIceCandidate(candidate));
-          }
-        });
+        peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
       });
 
       socket.on('disconnectPeer', (id) => {
-        peerConnections.forEach((p) => {
-          if (p.id === id) {
-            p.peer.close();
-          }
-        });
-
-        peerConnections.filter((p) => p.id !== id);
+        peerConnections[id].close();
       });
     }
 
@@ -126,31 +91,26 @@ export default function Room() {
   }, [isSpeaker]);
 
   function handleClick() {
-    // const test = ensureMediaPermissions();
-    // console.tron.log(test);
-    // navigator.mediaDevices
-    //   .getUserMedia({
-    //     audio: false,
-    //     // audio: { deviceId: audioSource },
-    //     video: { deviceId: videoSource },
-    //   })
-    //   .then((stream) => console.tron.log(stream));
-    // // .then((stream) => {
-    // //   setSstream(stream);
-    // //   videoRef.current.srcObject = stream;
-    // //   socket.emit('speaker');
-    // // });
-    // // videoRef.current.srcObject = newStream;
-    // console.tron.log(newStream);
+    navigator.mediaDevices
+      .getUserMedia({
+        // audio: { deviceId: audioSource },
+        audio: true,
+        video: true,
+        // video: { deviceId: videoSource },
+      })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+        socket.emit('speaker');
+      });
   }
 
-  function handleChange(e, type) {
-    if (type === 'audioinput') {
-      setAudioSource(e.target.value);
-    } else if (type === 'videoinput') {
-      setVideoSource(e.target.value);
-    }
-  }
+  // function handleChange(e, type) {
+  //   if (type === 'audioinput') {
+  //     setAudioSource(e.target.value);
+  //   } else if (type === 'videoinput') {
+  //     setVideoSource(e.target.value);
+  //   }
+  // }
 
   function handleCanPlay() {
     videoRef.current.play();
@@ -160,7 +120,7 @@ export default function Room() {
     <Container>
       {isSpeaker && (
         <>
-          <section>
+          {/* <section>
             <label htmlFor="audioSource">Audio source: </label>
             <select
               id="audioSource"
@@ -186,7 +146,7 @@ export default function Room() {
                 }
               })}
             </select>
-          </section>
+          </section> */}
 
           <section>
             <button onClick={handleClick}>Start Stream</button>

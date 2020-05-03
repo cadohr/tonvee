@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class MessageForm extends Component {
   static propTypes = {
     onMessageSend: PropTypes.func.isRequired,
-  }
+  };
 
   componentDidMount = () => {
-    this.input.focus()
-  }
+    this.input.focus();
+  };
 
   handleFormSubmit = (event) => {
-    event.preventDefault()
-    this.props.onMessageSend(this.input.value)
-    this.input.value = ""
-  }
+    event.preventDefault();
+    this.props.onMessageSend(this.input.value);
+    this.input.value = '';
+  };
 
   render() {
     return (
@@ -27,13 +27,11 @@ class MessageForm extends Component {
           />
         </div>
         <div className="button-container">
-          <button type="submit">
-            Send
-          </button>
+          <button type="submit">Send</button>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default MessageForm
+export default MessageForm;

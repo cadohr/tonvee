@@ -40,8 +40,6 @@ export default function Lobby() {
     async function loadArenas() {
       const { data } = await api.get('/arenas');
 
-      console.tron.log(data);
-
       setArenas(data);
     }
 
@@ -69,11 +67,11 @@ export default function Lobby() {
               Veja as paletras <br /> que estão no ar!
             </Text>
           </TextContent>
-          {/* <div>
+          <div>
             {arenas.map((arena) => (
               <p>{arena.name}</p>
             ))}
-          </div> */}
+          </div>
         </LiveRooms>
         <EventContent>
           <MapEvent>

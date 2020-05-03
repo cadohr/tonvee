@@ -17,9 +17,11 @@ export default function Header() {
   return (
     <>
       <Container>
-        <Logo>
-          <img src={logo} alt="Tonee" />
-        </Logo>
+        <Link to="/">
+          <Logo>
+            <img src={logo} alt="Tonvee" />
+          </Logo>
+        </Link>
         <ShortCuts>
           <UserProfiler>
             <Link to="/profile">

@@ -1,7 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Header, Title, Stands, Wrapper, InnerTitle, Button, RommContent, Video, Chat} from "./styles";
-import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png'
+import {
+  Container,
+  Header,
+  Title,
+  Stands,
+  Wrapper,
+  InnerTitle,
+  Button,
+  RommContent,
+  Video,
+  Chat,
+} from './styles';
+import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png';
 import socket from '~/services/socket';
 import { ensureMediaPermissions } from '~/utils';
 
@@ -19,24 +30,24 @@ export default function Room() {
     (state) => state.user.profile.type === 'speaker',
   );
 
-  const [peerConnection, setPeerConnection] = useState({});
-
   useEffect(() => {
     if (!isSpeaker) {
+      let pc = null;
       socket.on('offer', (id, description) => {
-        setPeerConnection({ id, peer: new RTCPeerConnection(config) });
-        peerConnection.peer
-          .setRemoteDescription(description)
-          .then(() => peerConnection.peer.createAnswer())
-          .then((sdp) => peerConnection.peer.setLocalDescription(sdp))
+        pc = new RTCPeerConnection(config);
+
+        pc.setRemoteDescription(description)
+          .then(() => pc.createAnswer())
+          .then((sdp) => pc.setLocalDescription(sdp))
           .then(() => {
-            socket.emit('answer', id, peerConnection.peer.localDescription);
+            socket.emit('answer', id, pc.localDescription);
           });
-        peerConnection.peer.ontrack = (event) => {
+
+        pc.ontrack = (event) => {
           console.tron.log(event.streams);
           videoRef.current.srcObject = event.streams[0];
         };
-        peerConnection.peer.onicecandidate = (event) => {
+        pc.onicecandidate = (event) => {
           if (event.candidate) {
             socket.emit('candidate', id, event.candidate);
           }
@@ -44,9 +55,9 @@ export default function Room() {
       });
 
       socket.on('candidate', (id, candidate) => {
-        peerConnection.peer
-          .addIceCandidate(new RTCIceCandidate(candidate))
-          .catch((e) => console.error(e));
+        pc.addIceCandidate(new RTCIceCandidate(candidate)).catch((e) =>
+          console.error(e),
+        );
       });
 
       socket.on('connect', () => {
@@ -58,7 +69,7 @@ export default function Room() {
       });
 
       socket.on('disconnectPeer', () => {
-        peerConnection.peer.close();
+        pc.close();
       });
     }
 
@@ -68,20 +79,24 @@ export default function Room() {
   }, [isSpeaker]);
 
   return (
-      <Container>
-        <Header>
-          <Title>Palestra: Estratégias de transformação digital - Cases</Title>
-          <Stands>
-            <Wrapper className="stands">
-              <InnerTitle>Visite o Stand virtual <br/> da Meio & Mensagem</InnerTitle>
-              <Button>Conhecer</Button>
-            </Wrapper>
-          </Stands>
-        </Header>
-        <RommContent>
-          <Video><img src={Videoplaceholder} alt="video"/></Video>
-          <Chat></Chat>
-        </RommContent>
-      </Container>
-  )
+    <Container>
+      <Header>
+        <Title>Palestra: Estratégias de transformação digital - Cases</Title>
+        <Stands>
+          <Wrapper className="stands">
+            <InnerTitle>
+              Visite o Stand virtual <br /> da Meio & Mensagem
+            </InnerTitle>
+            <Button>Conhecer</Button>
+          </Wrapper>
+        </Stands>
+      </Header>
+      <RommContent>
+        <Video>
+          <img src={Videoplaceholder} alt="video" />
+        </Video>
+        <Chat></Chat>
+      </RommContent>
+    </Container>
+  );
 }
