@@ -11,7 +11,6 @@ export default function DefaultLayout({ children }) {
     <Wrapper>
       <Header />
       {children}
-      <Footer />
     </Wrapper>
   );
 }

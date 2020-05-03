@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-
+import { Container, Header, Title, Stands, Wrapper, InnerTitle, Button, RommContent, Video, Chat} from "./styles";
+import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png'
 import socket from '~/services/socket';
-
 import { ensureMediaPermissions } from '~/utils';
-
-import { Container, Video } from './styles';
 
 const config = {
   iceServers: [
@@ -69,17 +67,6 @@ export default function Room() {
     };
   }, [isSpeaker]);
 
-  return (
-    <Container>
-      <Video playsInline autoPlay muted={isSpeaker} ref={videoRef} />
-    </Container>
-  );
-import React from 'react';
-import { Container, Header, Title, Stands, Wrapper, InnerTitle, Button, RommContent, Video, Chat} from "./styles";
-import CRoom from '~/components/Room';
-import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png'
-
-export default function Room() {
   return (
       <Container>
         <Header>

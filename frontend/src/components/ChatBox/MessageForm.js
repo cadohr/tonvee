@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import './MessageForm.css'
 
 class MessageForm extends Component {
   static propTypes = {
