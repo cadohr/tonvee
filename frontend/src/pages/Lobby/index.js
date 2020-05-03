@@ -34,28 +34,21 @@ import {
 } from './styles';
 
 export default function Lobby() {
-  const [rooms, setRooms] = useState([]);
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  const [arenas, setArenas] = useState([]);
 
-  const { connect } = useVideoContext();
+  // const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    async function loadRooms() {
-      const { data } = await api.get('/rooms');
+    async function loadArenas() {
+      const { data } = await api.get('/arenas');
 
-      setRooms(data);
+      console.tron.log(data);
+
+      setArenas(data);
     }
 
-    loadRooms();
+    loadArenas();
   }, []);
-
-  async function handleRoomClick(room) {
-    await connect(accessToken);
-
-    const roomName = room.uniqueName.split(':')[1];
-
-    history.push(`/room/${roomName}`);
-  }
 
   return (
     <Container>
@@ -78,11 +71,11 @@ export default function Lobby() {
               Veja as paletras <br /> que estão no ar!
             </Text>
           </TextContent>
-          <RoomList>
-            {rooms.map((room) => (
-              <h1 onClick={() => handleRoomClick(room)}>{room.uniqueName}</h1>
+          {/* <div>
+            {arenas.map((arena) => (
+              <p>{arena.name}</p>
             ))}
-          </RoomList>
+          </div> */}
         </LiveRooms>
         <EventContent>
           <MapEvent>

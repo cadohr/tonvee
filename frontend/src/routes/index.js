@@ -7,6 +7,8 @@ import Sign from '~/pages/Sign';
 import Lobby from '~/pages/Lobby';
 import Arena from '~/pages/Arena';
 import Room from '~/pages/Room';
+import Profile from '~/pages/Profile';
+
 
 export default function Routes() {
   return (
@@ -16,6 +18,7 @@ export default function Routes() {
       <Route path="/lobby" exact component={Lobby} isPrivate />
       <Route path="/arena/:id" component={Arena} isPrivate />
       <Route path="/room/:slug" component={Room} isPrivate />
+      <Route path="/profile" component={Profile} isPrivate />
     </Switch>
   );
 }
