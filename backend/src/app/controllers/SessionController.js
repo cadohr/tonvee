@@ -4,14 +4,14 @@ import User from '../models/User';
 
 import authConfig from '../../config/auth';
 
-import Twilio from '../../lib/Twilio';
+// import Twilio from '../../lib/Twilio';
 
-const speakerArenas = {
-  'speaker1@tonvee.com': 'arena-tech',
-  'speaker2@tonvee.com': 'arena-inovacao',
-  'speaker3@tonvee.com': 'arena-financas',
-  'speaker4@tonvee.com': 'arena-varejo',
-};
+// const speakerArenas = {
+//   'speaker1@tonvee.com': 'arena-tech',
+//   'speaker2@tonvee.com': 'arena-inovacao',
+//   'speaker3@tonvee.com': 'arena-financas',
+//   'speaker4@tonvee.com': 'arena-varejo',
+// };
 
 class SessionController {
   async store(req, res) {
@@ -36,18 +36,18 @@ class SessionController {
         expiresIn: authConfig.expiresIn,
       });
 
-      Twilio.generateAccesToken(user.id);
-      if (user.type === 'speaker') {
-        Twilio.addVideoGrant(`${user.id}:${speakerArenas[user.email]}`);
-      } else {
-        Twilio.addVideoGrant();
-      }
-      const accessToken = Twilio.toJwt();
+      // Twilio.generateAccesToken(user.id);
+      // if (user.type === 'speaker') {
+      //   Twilio.addVideoGrant(`${user.id}:${speakerArenas[user.email]}`);
+      // } else {
+      //   Twilio.addVideoGrant();
+      // }
+      // const accessToken = Twilio.toJwt();
 
       return res.json({
         user,
         token,
-        accessToken,
+        // accessToken,
       });
     } catch (error) {
       console.log(error);

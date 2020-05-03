@@ -9,6 +9,7 @@ import Arena from '~/pages/Arena';
 import Room from '~/pages/Room';
 import Profile from '~/pages/Profile';
 
+import SRoom from '~/pages/SRoom';
 
 export default function Routes() {
   return (
@@ -19,6 +20,7 @@ export default function Routes() {
       <Route path="/arena/:id" component={Arena} isPrivate />
       <Route path="/room/:slug" component={Room} isPrivate />
       <Route path="/profile" component={Profile} isPrivate />
+      <Route path="/sroom/:slug" component={SRoom} isPrivate />
     </Switch>
   );
 }

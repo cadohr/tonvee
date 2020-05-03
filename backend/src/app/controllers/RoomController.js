@@ -1,28 +1,18 @@
-import Twilio from '../../lib/Twilio';
-
+const rooms = [
+  { id: 1, name: 'Tech', slug: 'techroom' },
+  { id: 2, name: 'Inovação', slug: 'inovationroom' },
+  { id: 3, name: 'Finanças', slug: 'financesroom' },
+  { id: 4, name: 'Varejo', slug: 'retailroom' },
+];
 class RoomController {
   async index(req, res) {
-    const rooms = await Twilio.video().rooms.list();
-
     res.json(rooms);
   }
 
   async show(req, res) {
     const { sid } = req.params;
 
-    const room = await Twilio.rooms(sid).fetch();
-
-    res.json(room);
-  }
-
-  async store(req, res) {
-    const { turn = false, type = 'group', name } = req.body;
-
-    const room = await Twilio.video().rooms.create({
-      uniqueName: name,
-      type,
-      enableTurn: turn,
-    });
+    const room = rooms.map((r) => (r.id = sid));
 
     res.json(room);
   }

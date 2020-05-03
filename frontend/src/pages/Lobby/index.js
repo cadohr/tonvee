@@ -6,8 +6,6 @@ import history from '~/services/history';
 
 import ChatBox from '~/components/ChatBox';
 
-import useVideoContext from '~/hooks/useVideoContext';
-
 import liveLogo from '~/assets/live.svg';
 import EventMap from '~/assets/event-map.svg';
 import techIcon from '~/assets/iconsMap/tech.svg';

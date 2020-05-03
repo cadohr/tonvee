@@ -8,15 +8,19 @@ export const isMobile = (() => {
   return /Mobile/.test(navigator.userAgent);
 })();
 
-export const decodeOpaqueId = (opaqueId) => {
-  if (opaqueId === undefined || opaqueId === null) return null;
-  const unencoded = Buffer.from(opaqueId, 'base64').toString('utf8');
-  const [namespace, id] = unencoded.split(':');
-  return { namespace, id };
-};
-
-export const encodeOpaqueId = (namespace, id) => {
-  if (typeof id !== 'string' && typeof id !== 'number') return id;
-  const unencoded = `${namespace}:${id}`;
-  return Buffer.from(unencoded).toString('base64');
-};
+export function ensureMediaPermissions() {
+  return navigator.mediaDevices
+    .enumerateDevices()
+    .then((devices) =>
+      devices.every((device) => !(device.deviceId && device.label)),
+    )
+    .then((shouldAskForMediaPermissions) => {
+      if (shouldAskForMediaPermissions) {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true, video: true })
+          .then((mediaStream) =>
+            mediaStream.getTracks().forEach((track) => track.stop()),
+          );
+      }
+    });
+}

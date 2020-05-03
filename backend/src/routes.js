@@ -26,7 +26,6 @@ routes.get('/arenas', ArenaController.index);
 
 routes.get('/rooms', RoomController.index);
 routes.get('/rooms/:sid', RoomController.show);
-routes.post('/rooms', roleMiddleware('speaker'), RoomController.store);
 
 routes.get('/rooms/:roomSID/participants', ParticipantController.index);
 
