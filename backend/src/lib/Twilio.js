@@ -29,6 +29,11 @@ class Twilio {
     this.token.addGrant(videoGrant);
   }
 
+  addChatGrant() {
+    const chatGrant = new twilio.jwt.AccessToken.ChatGrant();
+    this.token.addGrant(chatGrant);
+  }
+
   toJwt() {
     return this.token.toJwt();
   }

@@ -76,4 +76,9 @@ export const Formwrapper = styled.div`
     background-color: #ffffff;
     height: 50px;
   }
+
+  hr {
+    margin-bottom: 20px;
+    border: 1px solid #0aa1a7;
+  }
 `;

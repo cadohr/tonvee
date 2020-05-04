@@ -7,6 +7,9 @@ import {
   ButtonNext,
   Image,
 } from 'pure-react-carousel';
+
+import { useParams } from 'react-router-dom';
+
 import Footer from '~/components/Footer';
 import Logo from '../../assets/inovacao_light.svg';
 import Calendario from '../../assets/pageArena/calendario.svg';
@@ -28,6 +31,13 @@ import {
   Comments,
 } from './styles';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+
+const arenasInfo = {
+  'arena-tech': [],
+  'arena-inovacao': [],
+  'arena-financas': [],
+  'arena-varejo': [],
+};
 
 export default function Arena() {
   return (

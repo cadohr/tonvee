@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
 import http from 'http';
+import { resolve } from 'path';
 import express from 'express';
 import socketIo from 'socket.io';
 
@@ -23,40 +24,46 @@ class App {
     this.io = socketIo(this.server);
 
     this.socketIo();
+
+    this.exceptionHandler();
   }
 
   middlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(
+      '/files',
+      express.static(resolve(__dirname, '..', 'tmp', 'uploads')),
+    );
   }
 
   routes() {
     this.app.use(routes);
   }
 
+  exceptionHandler() {
+    this.app.use(async (err, req, res, next) => {
+      return res.status(500).json({ error: 'internal server error' });
+    });
+  }
+
   socketIo() {
     this.io.on('connection', (socket) => {
       socket.on('speaker', () => {
         Redis.set('speaker', socket.id);
-        console.log(socket.id);
         socket.broadcast.emit('speaker');
       });
 
       socket.on('viewer', async () => {
-        console.log('viewer from');
         const speaker = await Redis.get('speaker');
-        console.log(speaker);
         this.io.emit('viewer', socket.id);
-        console.log('depois do emit');
       });
 
       socket.on('offer', (id, message) => {
-        console.log('offermessage: ', message);
         socket.to(id).emit('offer', socket.id, message);
       });
 
       socket.on('answer', (id, message) => {
-        console.log('answermessage: ', message);
         socket.to(id).emit('answer', socket.id, message);
       });
 

@@ -1,17 +1,11 @@
 import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
+import File from '../models/File';
 
 import authConfig from '../../config/auth';
 
-// import Twilio from '../../lib/Twilio';
-
-// const speakerArenas = {
-//   'speaker1@tonvee.com': 'arena-tech',
-//   'speaker2@tonvee.com': 'arena-inovacao',
-//   'speaker3@tonvee.com': 'arena-financas',
-//   'speaker4@tonvee.com': 'arena-varejo',
-// };
+import Twilio from '../../lib/Twilio';
 
 class SessionController {
   async store(req, res) {
@@ -22,6 +16,9 @@ class SessionController {
       const user = await User.findOne({
         where: { email },
         attributes: ['id', 'name', 'email', 'type', 'password_hash'],
+        include: [
+          { model: File, as: 'avatar', attributes: ['id', 'path', 'url'] },
+        ],
       });
 
       if (!user) {
@@ -36,18 +33,14 @@ class SessionController {
         expiresIn: authConfig.expiresIn,
       });
 
-      // Twilio.generateAccesToken(user.id);
-      // if (user.type === 'speaker') {
-      //   Twilio.addVideoGrant(`${user.id}:${speakerArenas[user.email]}`);
-      // } else {
-      //   Twilio.addVideoGrant();
-      // }
-      // const accessToken = Twilio.toJwt();
+      Twilio.generateAccesToken(user.name);
+      Twilio.addChatGrant();
+      const accessToken = Twilio.toJwt();
 
       return res.json({
         user,
         token,
-        // accessToken,
+        accessToken,
       });
     } catch (error) {
       console.log(error);

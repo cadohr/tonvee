@@ -3,9 +3,10 @@ import Sequelize from 'sequelize';
 import sequelizeConfig from '../config/sequelize';
 
 import User from '../app/models/User';
+import File from '../app/models/File';
 import Arena from '../app/models/Arena';
 
-const models = [User, Arena];
+const models = [User, File, Arena];
 
 class Database {
   constructor() {

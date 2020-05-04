@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form } from '@unform/web';
-import { Container, Title, Button, Formwrapper, Imagewrapper } from './styles';
+
+import { updateProfileRequest } from '~/store/modules/user/actions';
+
 import { Input } from '~/components/Form';
 import Footer from '~/components/Footer';
-import Profimg from '../../assets/pageProfile/meu_perfil.svg';
-import Editpicture from '../../assets/pageProfile/editPicture.svg';
-import Picture from '../../assets/pageProfile/profilePicture.png';
+
+import AvatarInput from './AvatarInput';
+
+import Profimg from '~/assets/pageProfile/meu_perfil.svg';
+import Editpicture from '~/assets/pageProfile/editPicture.svg';
+import Picture from '~/assets/pageProfile/profilePicture.png';
+
+import { Container, Title, Button, Formwrapper, Imagewrapper } from './styles';
 
 export default function Profile() {
+  const profile = useSelector((state) => state.user.profile);
+  const dispatch = useDispatch();
+
+  function handleSubmit(data) {
+    console.log(data);
+    dispatch(updateProfileRequest(data));
+  }
+
   return (
     <>
       <Container>
@@ -16,24 +32,50 @@ export default function Profile() {
           <h1>Meu Perfil</h1>
         </Title>
         <Formwrapper>
-          <Imagewrapper>
-            <div>
-
-            <a href="a">
-              <img
-                className="edit-picture"
-                src={Editpicture}
-                alt="Editar foto de perfil"
+          <Form initialData={profile} onSubmit={handleSubmit}>
+            <Imagewrapper>
+              {/* <div>
+              <a href="a">
+                <img
+                  className="edit-picture"
+                  src={Editpicture}
+                  alt="Editar foto de perfil"
                 />
-            </a>
-                </div>
-            <img className="profile-picture" src={Picture} alt="Usuario" />
-          </Imagewrapper>
-          <Form onSubmit="a">
+              </a>
+            </div>
+            <img className="profile-picture" src={Picture} alt="Usuario" /> */}
+
+              <AvatarInput name="avatar_id" />
+            </Imagewrapper>
             <Input placeholder="Name" name="name" type="text" />
             <Input placeholder="Email" name="email" type="email" />
-            <Input placeholder="Senha" name="password" type="password" />
-            <Button>Cadastrar</Button>
+
+            {/* <hr />
+
+            <Input
+              placeholder="Senha atual"
+              name="oldPassword"
+              type="password"
+              value={oldPassword}
+              onChange={(e) => handleOldPassworChange(e)}
+            />
+
+            <Input
+              placeholder="Nova senha"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => handlePasswordChange(e)}
+            />
+            <Input
+              placeholder="Confirmação de senha"
+              name="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => handleConfirmPasswordChange(e)}
+            /> */}
+
+            <Button>Salvar</Button>
           </Form>
         </Formwrapper>
       </Container>

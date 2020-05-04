@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro';
-import colors from '~/styles/colors';
 
 export const Container = styled.div`
   display: flex;
@@ -72,10 +71,10 @@ export const BackgroundStrip = styled.div`
 
 export const MiniLive = styled.div`
   z-index: 2;
-    width: 100%;
-    max-width: 200px;
+  width: 100%;
+  max-width: 200px;
 
-  img{
+  img {
     width: 100%;
   }
 `;
@@ -87,7 +86,7 @@ export const TextContent = styled.div`
 export const Live = styled.div`
   text-align: center;
 
-  img{
+  img {
     width: 100%;
     max-width: 90px;
   }

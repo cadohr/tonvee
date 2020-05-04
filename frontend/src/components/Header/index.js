@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOut } from '~/store/modules/auth/actions';
 import logo from '../../assets/logo.png';
@@ -8,6 +8,7 @@ import logout from '../../assets/logout.svg';
 import { Container, Logo, ShortCuts, UserProfiler, Logout } from './styles';
 
 export default function Header() {
+  const profile = useSelector((state) => state.user.profile);
   const dispatch = useDispatch();
 
   function handleClick() {
@@ -25,7 +26,13 @@ export default function Header() {
         <ShortCuts>
           <UserProfiler>
             <Link to="/profile">
-              <img src={user} alt="User" />
+              <img
+                src={
+                  (profile.avatar && profile.avatar.url) ||
+                  'https://api.adorable.io/avatars/50/abott@adorable.png'
+                }
+                alt="User"
+              />
             </Link>
           </UserProfiler>
           <Logout onClick={() => handleClick()}>

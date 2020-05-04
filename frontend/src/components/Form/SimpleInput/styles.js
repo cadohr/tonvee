@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import colors from '~/styles/colors';
-
 export const Label = styled.label`
   font-size: 14px;
   font-weight: bold;

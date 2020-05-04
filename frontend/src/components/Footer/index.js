@@ -1,5 +1,12 @@
 import React from 'react';
-import { Container, Content, Text, Social, Contact, Socialtitle } from './styles';
+import {
+  Container,
+  Content,
+  Text,
+  Social,
+  Contact,
+  Socialtitle,
+} from './styles';
 import logo from '../../assets/logo.png';
 import Linkedin from '../../assets/Footer/linkedin.png';
 import Facebook from '../../assets/Footer/facebook.png';
@@ -21,13 +28,13 @@ export default function footer() {
           <Social>
             <Socialtitle>Social</Socialtitle>
             <a href="Facebook/Tonvee">
-              <img src={Facebook} />
+              <img src={Facebook} alt="" />
             </a>
             <a href="Linkedin/Tonvee">
-              <img src={Linkedin} />
+              <img src={Linkedin} alt="" />
             </a>
             <a href="Twitter/Tonvee">
-              <img src={Twitter} />
+              <img src={Twitter} alt="" />
             </a>
           </Social>
         </Content>
