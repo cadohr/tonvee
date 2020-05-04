@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form } from '@unform/web';
 
@@ -10,8 +10,8 @@ import Footer from '~/components/Footer';
 import AvatarInput from './AvatarInput';
 
 import Profimg from '~/assets/pageProfile/meu_perfil.svg';
-import Editpicture from '~/assets/pageProfile/editPicture.svg';
-import Picture from '~/assets/pageProfile/profilePicture.png';
+// import Editpicture from '~/assets/pageProfile/editPicture.svg';
+// import Picture from '~/assets/pageProfile/profilePicture.png';
 
 import { Container, Title, Button, Formwrapper, Imagewrapper } from './styles';
 

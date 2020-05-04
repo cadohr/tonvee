@@ -31,6 +31,7 @@ routes.put('/users', UserController.update);
 routes.post('/files', upload.single('file'), FileController.store);
 
 routes.get('/arenas', ArenaController.index);
+routes.get('/arenas/:slug', ArenaController.show);
 
 routes.get('/rooms', RoomController.index);
 routes.get('/rooms/:sid', RoomController.show);

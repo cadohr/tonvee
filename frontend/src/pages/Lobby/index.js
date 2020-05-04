@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import api from '~/services/api';
-import history from '~/services/history';
 
 import ChatBox from '~/components/ChatBox';
 
@@ -15,12 +15,10 @@ import inovacaoIcon from '~/assets/iconsMap/inovacao.svg';
 import placegolderShow from '~/assets/placeholders/placegolderShow.png';
 import felipe from '~/assets/placeholders/Felipe.png';
 
-
 import {
   Container,
   LefContainer,
   RightContainer,
-  RoomList,
   MusicLive,
   Hello,
   SubTitle,
@@ -39,15 +37,52 @@ import {
 } from './styles';
 
 export default function Lobby() {
+  const isSpeaker = useSelector(
+    (state) => state.user.profile.type === 'speaker',
+  );
   const [arenas, setArenas] = useState([]);
-
-  // const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     async function loadArenas() {
       const { data } = await api.get('/arenas');
 
-      setArenas(data);
+      setArenas(
+        data.map((arena) => {
+          if (arena.slug === 'arena-tech') {
+            arena.icon = techIcon;
+            arena.class = 'tech';
+            arena.description = 'lorem ipsum dolor sit ';
+            arena.room = '/room/techroom';
+            arena.sroom = '/sroom/techroom';
+          }
+
+          if (arena.slug === 'arena-inovacao') {
+            arena.icon = inovacaoIcon;
+            arena.class = 'inovacao';
+            arena.description = 'lorem ipsum dolor sit ';
+            arena.room = '/room/inovacaoroom';
+            arena.sroom = '/sroom/inovacaoroom';
+          }
+
+          if (arena.slug === 'arena-financas') {
+            arena.icon = financasIcon;
+            arena.class = 'financas';
+            arena.description = 'lorem ipsum dolor sit ';
+            arena.room = '/room/financasroom';
+            arena.sroom = '/sroom/financasroom';
+          }
+
+          if (arena.slug === 'arena-varejo') {
+            arena.icon = varejoIcon;
+            arena.class = 'varejo';
+            arena.description = 'lorem ipsum dolor sit ';
+            arena.room = '/room/varejoroom';
+            arena.sroom = '/sroom/varejoroom';
+          }
+
+          return arena;
+        }),
+      );
     }
 
     loadArenas();
@@ -68,22 +103,6 @@ export default function Lobby() {
         </MusicLive>
       </LefContainer>
       <RightContainer>
-        {/* <LiveRooms>
-          <TextContent>
-            <Live>
-              <img src={liveLogo} alt="Live" />
-            </Live>
-            <Text>
-              Veja as paletras <br /> que estão no ar!
-            </Text>
-          </TextContent>
-          <div>
-            {arenas.map((arena) => (
-              <p>{arena.name}</p>
-            ))}
-          </div>
-        </LiveRooms> */}
-
         <LiveRooms>
           <BackgroundStrip />
           <LiveContent>
@@ -95,50 +114,28 @@ export default function Lobby() {
                 Veja as paletras <br /> que estão no ar!
               </Text>
             </TextContent>
-            <MiniLive><img src={felipe}/></MiniLive>
-            <MiniLive><img src={felipe}/></MiniLive>
-            <MiniLive><img src={felipe}/></MiniLive>
-            <MiniLive><img src={felipe}/></MiniLive>
+            {arenas.map((arena) => (
+              <MiniLive key={arena.slug}>
+                <Link to={isSpeaker ? arena.sroom : arena.room}>
+                  <img src={felipe} alt="" />
+                </Link>
+              </MiniLive>
+            ))}
           </LiveContent>
         </LiveRooms>
         <EventContent>
           <MapEvent>
-            <CardMap className="tech">
-              <CardText>
-                <Title>Arena Tech</Title>
-                <Text>
-                  lorem ipsum dolor sit <br /> amet consectetur
-                </Text>
-              </CardText>
-              <img src={techIcon} alt="tech" />
-            </CardMap>
-            <CardMap className="varejo">
-              <CardText>
-                <Title>Arena Varejo</Title>
-                <Text>
-                  lorem ipsum dolor sit <br /> amet consectetur
-                </Text>
-              </CardText>
-              <img src={varejoIcon} alt="varejo" />
-            </CardMap>
-            <CardMap className="inovacao">
-              <CardText>
-                <Title>Arena Inovção</Title>
-                <Text>
-                  lorem ipsum dolor sit <br /> amet consectetur
-                </Text>
-              </CardText>
-              <img src={inovacaoIcon} alt="Inovação" />
-            </CardMap>
-            <CardMap className="financas">
-              <CardText>
-                <Title>Arena Finanças</Title>
-                <Text>
-                  lorem ipsum dolor sit <br /> amet consectetur
-                </Text>
-              </CardText>
-              <img src={financasIcon} alt="fincancas" />
-            </CardMap>
+            {arenas.map((arena) => (
+              <CardMap className={arena.class} key={arena.slug}>
+                <CardText>
+                  <Link to={`/arena/${arena.slug}`}>
+                    <Title>{arena.name}</Title>
+                    <Text>{arena.description}</Text>
+                  </Link>
+                </CardText>
+                <img src={arena.icon} alt={arena.name} />
+              </CardMap>
+            ))}
             <img src={EventMap} className="imageMap" alt="Mapa do Evento" />
           </MapEvent>
         </EventContent>

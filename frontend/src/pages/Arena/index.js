@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import {
   CarouselProvider,
   Slider,
@@ -8,18 +10,20 @@ import {
   Image,
 } from 'pure-react-carousel';
 
-import { useParams } from 'react-router-dom';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+
+import api from '~/services/api';
 
 import Footer from '~/components/Footer';
-import Logo from '../../assets/inovacao_light.svg';
-import Calendario from '../../assets/pageArena/calendario.svg';
-import Live from '../../assets/pageArena/real_time.svg';
-import Epoca from '../../assets/pageArena/epoca.png';
-import Pegn from '../../assets/pageArena/pegn.png';
-import Comentario from '../../assets/pageArena/comentario.png';
-import Speaker from '../../assets/pageArena/speaker.png';
-import Leftarrow from '../../assets/pageArena/left-arrow.png';
-import Rightarrow from '../../assets/pageArena/right-arrow.png';
+import Logo from '~/assets/inovacao_light.svg';
+import Calendario from '~/assets/pageArena/calendario.svg';
+import Live from '~/assets/pageArena/real_time.svg';
+import Epoca from '~/assets/pageArena/epoca.png';
+import Pegn from '~/assets/pageArena/pegn.png';
+import Comentario from '~/assets/pageArena/comentario.png';
+import Speaker from '~/assets/pageArena/speaker.png';
+import Leftarrow from '~/assets/pageArena/left-arrow.png';
+import Rightarrow from '~/assets/pageArena/right-arrow.png';
 
 import {
   Container,
@@ -30,29 +34,42 @@ import {
   Suporters,
   Comments,
 } from './styles';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-
-const arenasInfo = {
-  'arena-tech': [],
-  'arena-inovacao': [],
-  'arena-financas': [],
-  'arena-varejo': [],
-};
 
 export default function Arena() {
+  const { slug } = useParams();
+  const [arena, setArena] = useState({});
+
+  useEffect(() => {
+    async function loadArena() {
+      const { data } = await api.get(`/arenas/${slug}`);
+
+      data.description =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultrices tristique justo, et eleifend purus viverra et. Nulla condimentum consectetur gravida. Mauris sollicitudin blandit tellus. Curabitur rutrum blandit massa at iaculis. Aliquam erat volutCu rabitur rutrum blandit massa at iaculis. Aliquam erat volut';
+      if (data.slug === 'arena-tech') {
+      }
+
+      if (data.slug === 'arena-inovacao') {
+      }
+
+      if (data.slug === 'arena-varejo') {
+      }
+
+      if (data.slug === 'arena-financas') {
+      }
+
+      setArena(data);
+    }
+
+    loadArena();
+  }, [slug]);
+
   return (
     <div>
       <Container>
         <Presentation>
           <img src={Logo} alt="Sair" />
-          <h1>Arena Inovação</h1>
-          <span className="arena-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            ultrices tristique justo, et eleifend purus viverra et. Nulla
-            condimentum consectetur gravida. Mauris sollicitudin blandit tellus.
-            Curabitur rutrum blandit massa at iaculis. Aliquam erat volutCu
-            rabitur rutrum blandit massa at iaculis. Aliquam erat volut
-          </span>
+          <h1>{arena.name}</h1>
+          <span className="arena-description">{arena.description}</span>
         </Presentation>
       </Container>
 

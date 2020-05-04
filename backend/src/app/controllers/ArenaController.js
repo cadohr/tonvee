@@ -6,6 +6,17 @@ class ArenaController {
 
     res.json(arenas);
   }
+
+  async show(req, res) {
+    const { slug } = req.params;
+
+    const { id, name } = await Arena.findOne({
+      where: { slug },
+      attributes: ['id', 'name', 'slug'],
+    });
+
+    res.json({ id, name, slug });
+  }
 }
 
 export default new ArenaController();

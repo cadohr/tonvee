@@ -18,12 +18,11 @@ export default function Routes() {
       <Route path="/" exact component={Sign} />
 
       <Route path="/lobby" exact component={Lobby} isPrivate />
-      <Route path="/arena/:id" component={Arena} isPrivate />
+      <Route path="/arena/:slug" component={Arena} isPrivate />
       <Route path="/room/:slug" component={Room} isPrivate />
       <Route path="/profile" component={Profile} isPrivate />
       <Route path="/sroom/:slug" component={SRoom} isPrivate />
       <Route path="/checkout" component={Checkout} isPrivate />
-
     </Switch>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Container,
@@ -14,7 +14,7 @@ import {
 } from './styles';
 import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png';
 import socket from '~/services/socket';
-import { ensureMediaPermissions } from '~/utils';
+// import { ensureMediaPermissions } from '~/utils';
 
 const config = {
   iceServers: [

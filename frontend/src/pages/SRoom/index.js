@@ -21,9 +21,9 @@ export default function Room() {
     (state) => state.user.profile.type === 'speaker',
   );
 
-  const [devices, setDevices] = useState([]);
-  const [audioSource, setAudioSource] = useState();
-  const [videoSource, setVideoSource] = useState();
+  const [, setDevices] = useState([]);
+  // const [audioSource, setAudioSource] = useState();
+  // const [videoSource, setVideoSource] = useState();
 
   function getDevices() {
     return ensureMediaPermissions().then(() =>
@@ -34,10 +34,12 @@ export default function Room() {
   }
 
   useEffect(() => {
+    const videoRefCurrent = videoRef.current;
+
     return () => {
       navigator.mediaDevices.removeEventListener('devicechange', getDevices);
 
-      let stream = videoRef.current.srcObject;
+      let stream = videoRefCurrent;
 
       stream.getTracks().forEach((track) => track.stop());
     };
@@ -88,7 +90,7 @@ export default function Room() {
     return () => {
       socket.close();
     };
-  }, [isSpeaker]);
+  }, [isSpeaker, peerConnections]);
 
   function handleClick() {
     navigator.mediaDevices
