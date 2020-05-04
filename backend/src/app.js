@@ -6,6 +6,7 @@ import express from 'express';
 import socketIo from 'socket.io';
 
 import cors from 'cors';
+import helmet from 'helmet';
 
 import routes from './routes';
 
@@ -17,6 +18,7 @@ class App {
   constructor() {
     this.app = express();
 
+    this.secure();
     this.middlewares();
     this.routes();
 
@@ -29,6 +31,7 @@ class App {
   }
 
   middlewares() {
+    this.app.use(helmet());
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(
@@ -45,6 +48,10 @@ class App {
     this.app.use(async (err, req, res, next) => {
       return res.status(500).json({ error: 'internal server error' });
     });
+  }
+
+  secure() {
+    this.app.disable('x-powered-by');
   }
 
   socketIo() {

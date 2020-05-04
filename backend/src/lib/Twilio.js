@@ -30,7 +30,9 @@ class Twilio {
   }
 
   addChatGrant() {
-    const chatGrant = new twilio.jwt.AccessToken.ChatGrant();
+    const chatGrant = new twilio.jwt.AccessToken.ChatGrant({
+      serviceSid: process.env.TWILIO_CHAT_SERVICE_SID,
+    });
     this.token.addGrant(chatGrant);
   }
 

@@ -104,19 +104,19 @@ export default function Room() {
     };
   }, [isSpeaker, peerConnections]);
 
-  function handleClick() {
-    navigator.mediaDevices
-      .getUserMedia({
-        // audio: { deviceId: audioSource },
-        audio: true,
-        video: true,
-        // video: { deviceId: videoSource },
-      })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        socket.emit('speaker');
-      });
-  }
+  // function handleClick() {
+  //   navigator.mediaDevices
+  //     .getUserMedia({
+  //       // audio: { deviceId: audioSource },
+  //       audio: true,
+  //       video: true,
+  //       // video: { deviceId: videoSource },
+  //     })
+  //     .then((stream) => {
+  //       videoRef.current.srcObject = stream;
+  //       socket.emit('speaker');
+  //     });
+  // }
 
   // function handleChange(e, type) {
   //   if (type === 'audioinput') {
