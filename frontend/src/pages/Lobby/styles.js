@@ -29,9 +29,19 @@ export const SubTitle = styled.p`
 
 export const MusicLive = styled.div`
   position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 
   img {
     width: 100%;
+
+    &.chat{
+      position: absolute;
+    bottom: 30px;
+    max-width: 90%;
+    }
   }
 `;
 

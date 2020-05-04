@@ -41,9 +41,22 @@ export const Button = styled.button`
 export const RommContent = styled.div`
   padding: 0 60px;
   margin: -20px 0 50px 0;
+  display: flex;
+  align-items: flex-end
 `;
 export const Video = styled.div`
   max-width: 65%;
+
+  img{
+    width: 100%;
+  }
 `;
-export const Chat = styled.div``;
+export const Chat = styled.div`
+  width: 40%;
+  margin-left: -15px;
+
+  img{
+    width: 100%;
+  }
+`;
 

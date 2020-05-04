@@ -67,7 +67,8 @@ export const Formwrapper = styled.div`
   margin-bottom: 100px;
 
   form {
-    width: 50%;
+    width: 100%;
+    display: flex;
   }
 
   input {
@@ -82,3 +83,9 @@ export const Formwrapper = styled.div`
     border: 1px solid #0aa1a7;
   }
 `;
+
+export const InputWrapper = styled.div`
+
+`;
+
+

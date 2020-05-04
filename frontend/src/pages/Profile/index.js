@@ -13,7 +13,7 @@ import Profimg from '~/assets/pageProfile/meu_perfil.svg';
 // import Editpicture from '~/assets/pageProfile/editPicture.svg';
 // import Picture from '~/assets/pageProfile/profilePicture.png';
 
-import { Container, Title, Button, Formwrapper, Imagewrapper } from './styles';
+import { Container, Title, Button, Formwrapper, Imagewrapper, InputWrapper } from './styles';
 
 export default function Profile() {
   const profile = useSelector((state) => state.user.profile);
@@ -42,11 +42,11 @@ export default function Profile() {
                   alt="Editar foto de perfil"
                 />
               </a>
-            </div>
-            <img className="profile-picture" src={Picture} alt="Usuario" /> */}
-
-              <AvatarInput name="avatar_id" />
+            </div> */}
+            {/* <img className="profile-picture" src={Picture} alt="Usuario" /> */}
+                <AvatarInput name="avatar_id" />
             </Imagewrapper>
+            <InputWrapper>
             <Input placeholder="Name" name="name" type="text" />
             <Input placeholder="Email" name="email" type="email" />
 
@@ -76,6 +76,8 @@ export default function Profile() {
             /> */}
 
             <Button>Salvar</Button>
+            </InputWrapper>
+
           </Form>
         </Formwrapper>
       </Container>
