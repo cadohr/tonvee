@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+
 import {
   Container,
   Header,
@@ -14,7 +15,6 @@ import {
 } from './styles';
 import Videoplaceholder from '../../assets/pageRooms/videoPlaceholder.png';
 import socket from '~/services/socket';
-// import { ensureMediaPermissions } from '~/utils';
 
 const config = {
   iceServers: [
@@ -44,9 +44,10 @@ export default function Room() {
           });
 
         pc.ontrack = (event) => {
-          console.tron.log(event.streams);
+          console.log('entrou aqui');
           videoRef.current.srcObject = event.streams[0];
         };
+
         pc.onicecandidate = (event) => {
           if (event.candidate) {
             socket.emit('candidate', id, event.candidate);
@@ -93,7 +94,11 @@ export default function Room() {
       </Header>
       <RommContent>
         <Video>
-          <img src={Videoplaceholder} alt="video" />
+          {videoRef.current ? (
+            <video playsInline autoPlay muted={isSpeaker} ref={videoRef} />
+          ) : (
+            <img src={Videoplaceholder} alt="video" />
+          )}
         </Video>
         <Chat></Chat>
       </RommContent>

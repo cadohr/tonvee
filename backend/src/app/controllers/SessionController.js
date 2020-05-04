@@ -11,7 +11,6 @@ class SessionController {
   async store(req, res) {
     try {
       const { email, password } = req.body;
-      console.log(password);
 
       const user = await User.findOne({
         where: { email },

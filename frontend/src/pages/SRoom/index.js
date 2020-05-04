@@ -36,6 +36,18 @@ export default function Room() {
   useEffect(() => {
     const videoRefCurrent = videoRef.current;
 
+    navigator.mediaDevices
+      .getUserMedia({
+        // audio: { deviceId: audioSource },
+        audio: true,
+        video: true,
+        // video: { deviceId: videoSource },
+      })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+        socket.emit('speaker');
+      });
+
     return () => {
       navigator.mediaDevices.removeEventListener('devicechange', getDevices);
 
@@ -150,9 +162,9 @@ export default function Room() {
             </select>
           </section> */}
 
-          <section>
+          {/* <section>
             <button onClick={handleClick}>Start Stream</button>
-          </section>
+          </section> */}
         </>
       )}
       <Video

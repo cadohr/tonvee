@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
-export const Video = styled.video``;
+export const Video = styled.video`
+  height: 100vh;
+`;
