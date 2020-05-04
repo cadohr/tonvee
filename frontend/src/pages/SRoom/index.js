@@ -51,7 +51,7 @@ export default function Room() {
     return () => {
       navigator.mediaDevices.removeEventListener('devicechange', getDevices);
 
-      let stream = videoRefCurrent;
+      let stream = videoRefCurrent.srcObject;
 
       stream.getTracks().forEach((track) => track.stop());
     };
