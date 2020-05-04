@@ -30,6 +30,10 @@ export default function Room() {
     (state) => state.user.profile.type === 'speaker',
   );
 
+  function handleCanPlay() {
+    videoRef.current.play();
+  }
+
   useEffect(() => {
     if (!isSpeaker) {
       let pc = null;
@@ -44,7 +48,6 @@ export default function Room() {
           });
 
         pc.ontrack = (event) => {
-          console.log('entrou aqui');
           videoRef.current.srcObject = event.streams[0];
         };
 
@@ -94,11 +97,17 @@ export default function Room() {
       </Header>
       <RommContent>
         <Video>
-          {videoRef.current ? (
-            <video playsInline autoPlay muted={isSpeaker} ref={videoRef} />
-          ) : (
-            <img src={Videoplaceholder} alt="video" />
-          )}
+          {/* {videoRef.current ? ( */}
+          <video
+            playsInline
+            onCanPlay={handleCanPlay}
+            autoPlay
+            muted={isSpeaker}
+            ref={videoRef}
+          />
+          {/* ) : ( */}
+          {/* <img src={Videoplaceholder} alt="video" /> */}
+          {/* )} */}
         </Video>
         <Chat></Chat>
       </RommContent>

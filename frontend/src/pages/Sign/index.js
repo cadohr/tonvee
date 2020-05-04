@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form } from '@unform/web';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -11,13 +11,18 @@ import 'react-tabs/style/react-tabs.css';
 
 export default function Sign() {
   const dispatch = useDispatch();
+  const tabRef = useRef(null);
 
   function handleSubmitLogin({ email, password }) {
     dispatch(signInRequest(email, password));
   }
 
-  function handleSubmitRegister({ name, email, password }) {
+  function handleSubmitRegister({ name, email, password }, { reset }) {
     dispatch(signUpRequest(name, email, password));
+
+    tabRef.current.node.click();
+
+    reset();
   }
 
   return (
@@ -37,7 +42,9 @@ export default function Sign() {
           <div className="tabs-wrapper">
             <Tabs>
               <TabList>
-                <Tab className="single-tab">Login</Tab>
+                <Tab className="single-tab" ref={tabRef}>
+                  Login
+                </Tab>
                 <Tab className="single-tab">Cadastrar</Tab>
               </TabList>
               <TabPanel>
