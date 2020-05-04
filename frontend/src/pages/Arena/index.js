@@ -44,7 +44,7 @@ export default function Arena() {
       const { data } = await api.get(`/arenas/${slug}`);
 
       data.description =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultrices tristique justo, et eleifend purus viverra et. Nulla condimentum consectetur gravida. Mauris sollicitudin blandit tellus. Curabitur rutrum blandit massa at iaculis. Aliquam erat volutCu rabitur rutrum blandit massa at iaculis. Aliquam erat volut';
+        'Este espaço destina-se a promover mais inovação por meio da colaboração e da cooperação entre empresas e indústrias, instituições de pesquisa e desenvolvimento e o setor público. Tem como público-alvo as comunidades empresariais regionais que possuem negóco';
       if (data.slug === 'arena-tech') {
       }
 
@@ -88,10 +88,10 @@ export default function Arena() {
                 <div className="slide-wrapper">
                   <Image src={Speaker} />
                   <div className="speaker-wrapper">
-                    <span className="speaker-name">Caito Maia</span>
+                    <span className="speaker-name">Carlos Abreu</span>
                     <span className="speaker-description">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor
+                      Palestrante renomado nas áreas de finanças e novos
+                      negócios com mais de 12 anos de experiência.
                     </span>
                   </div>
                 </div>
@@ -100,10 +100,10 @@ export default function Arena() {
                 <div className="slide-wrapper">
                   <Image src={Speaker} />
                   <div className="speaker-wrapper">
-                    <span className="speaker-name">Caito Maia</span>
+                    <span className="speaker-name">João Dias Andrade</span>
                     <span className="speaker-description">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor
+                      CEO e co-founder da empresa Inovation Tecnology,
+                      trabalhando 10 anos no ramo.
                     </span>
                   </div>
                 </div>
@@ -112,10 +112,10 @@ export default function Arena() {
                 <div className="slide-wrapper">
                   <Image src={Speaker} />
                   <div className="speaker-wrapper">
-                    <span className="speaker-name">Caito Maia</span>
+                    <span className="speaker-name">Mariana Amorim</span>
                     <span className="speaker-description">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor
+                      Jornalista da revista Novo Mundo, especializada no tema
+                      inovação e palestrante a mais de 5 anos.
                     </span>
                   </div>
                 </div>
@@ -124,10 +124,10 @@ export default function Arena() {
                 <div className="slide-wrapper">
                   <Image src={Speaker} />
                   <div className="speaker-wrapper">
-                    <span className="speaker-name">Caito Maia</span>
+                    <span className="speaker-name">Denise Costa</span>
                     <span className="speaker-description">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor
+                      Desenvolvedora a 15 anos, trabalhou por 10 no vale do
+                      silício e fundou a empresa Stonks.
                     </span>
                   </div>
                 </div>
@@ -151,16 +151,14 @@ export default function Arena() {
             </div>
             <div className="title-info-content">
               <span className="lecture">
-                <strong>Palestra:</strong> Caito Maia -18h / Cristina
-                Junqueira-19h30
+                <strong>Palestra:</strong> 8h00 - Estratégias de transformação
+                digital
               </span>
               <span className="lecture">
-                <strong>Palestra:</strong> Caito Maia -18h / Cristina
-                Junqueira-19h30
+                <strong>Palestra:</strong> 9h00 - Startups
               </span>
               <span className="lecture">
-                <strong>Palestra:</strong> Caito Maia -18h / Cristina
-                Junqueira-19h30
+                <strong>Palestra:</strong> 10h30 - Criando canvas
               </span>
             </div>
           </div>
@@ -171,16 +169,14 @@ export default function Arena() {
             </div>
             <div className="title-info-content">
               <span className="lecture">
-                <strong>Palestra:</strong> Caito Maia - Lorem ipsum dolor sit
-                amet
+                <strong>Palestra:</strong> 8h00 - Estratégias de transformação
+                digital
               </span>
               <span className="lecture">
-                <strong>Palestra:</strong> Caito Maia - Lorem ipsum dolor sit
-                amet
+                <strong>Palestra:</strong> 9h00 - Startups
               </span>
               <span className="lecture">
-                <strong>Palestra:</strong> Caito Maia - Lorem ipsum dolor sit
-                amet
+                <strong>Palestra:</strong> 10h30 - Criando canvas
               </span>
             </div>
           </div>
@@ -212,10 +208,10 @@ export default function Arena() {
                     <span>Micro-empreendedora</span>
                   </div>
                   <span>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                    justo duo dolores et ea rebum
+                    Adorei a experiência que eu tive na última palestra, o
+                    evento em si me proporcionou uma imersão em cada assunto e
+                    me deram várias ideias aplicar no meu negócio. Pretendo
+                    voltar em 2022. Recomendo!!!
                   </span>
                 </div>
               </Slide>
@@ -227,10 +223,10 @@ export default function Arena() {
                     <span>Micro-empreendedora</span>
                   </div>
                   <span>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                    justo duo dolores et ea rebum
+                    Adorei a experiência que eu tive na última palestra, o
+                    evento em si me proporcionou uma imersão em cada assunto e
+                    me deram várias ideias aplicar no meu negócio. Pretendo
+                    voltar em 2022. Recomendo!!!
                   </span>
                 </div>
               </Slide>
@@ -244,7 +240,7 @@ export default function Arena() {
           </CarouselProvider>
         </Comments>
       </Container>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

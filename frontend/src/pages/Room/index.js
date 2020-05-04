@@ -86,7 +86,7 @@ export default function Room() {
         <Stands>
           <Wrapper className="stands">
             <InnerTitle>
-              Visite o Stand virtual <br /> da Meio & Mensagem
+              Visite o Stand virtual <br /> Fashion Glasses
             </InnerTitle>
             <Button>Conhecer</Button>
           </Wrapper>

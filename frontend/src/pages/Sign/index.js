@@ -25,13 +25,13 @@ export default function Sign() {
       <Container>
         <div className="presentation-text">
           <img className="logo" src={logo} alt="Tonvee" />
-          <span className="first-span">
-            Lorem ipsum dolor sit amet, consetetur sadipscing
-          </span>
+          {/* <span className="first-span">
+          Feira do Empreendedor
+          </span> */}
           <h1>
-            A Nice heading <br /> goes here
+            Feira do <br /> Empreendedor
           </h1>
-          <span className="second-span">Acompanhe eventos em tempo real</span>
+          <span className="second-span">Evento da PEGN e Época negócios.</span>
         </div>
         <div className="forms-wrapper">
           <div className="tabs-wrapper">

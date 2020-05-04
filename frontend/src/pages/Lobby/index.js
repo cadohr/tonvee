@@ -13,7 +13,11 @@ import varejoIcon from '~/assets/iconsMap/varejo.svg';
 import financasIcon from '~/assets/iconsMap/financas.svg';
 import inovacaoIcon from '~/assets/iconsMap/inovacao.svg';
 import placegolderShow from '~/assets/placeholders/placegolderShow.png';
-import felipe from '~/assets/placeholders/Felipe.png';
+import palestra1 from '~/assets/pageLobby/palestra1';
+import palestra2 from '~/assets/pageLobby/palestra2';
+import palestra3 from '~/assets/pageLobby/palestra3';
+import palestra4 from '~/assets/pageLobby/palestra4';
+
 
 import {
   Container,
@@ -51,33 +55,37 @@ export default function Lobby() {
           if (arena.slug === 'arena-tech') {
             arena.icon = techIcon;
             arena.class = 'tech';
-            arena.description = 'lorem ipsum dolor sit ';
+            arena.description = 'Cases e novas tecnologias para produtos digitais.';
             arena.room = '/room/techroom';
             arena.sroom = '/sroom/techroom';
+            arena.palestra = palestra1;
           }
 
           if (arena.slug === 'arena-inovacao') {
             arena.icon = inovacaoIcon;
             arena.class = 'inovacao';
-            arena.description = 'lorem ipsum dolor sit ';
+            arena.description = 'Inovação por meio da colaboração e da cooperação entre empresas e indústrias.';
             arena.room = '/room/inovacaoroom';
             arena.sroom = '/sroom/inovacaoroom';
+            arena.palestra = palestra2;
           }
 
           if (arena.slug === 'arena-financas') {
             arena.icon = financasIcon;
             arena.class = 'financas';
-            arena.description = 'lorem ipsum dolor sit ';
+            arena.description = 'Finanças em 2020 e como prosperar na crise.';
             arena.room = '/room/financasroom';
             arena.sroom = '/sroom/financasroom';
+            arena.palestra = palestra3;
           }
 
           if (arena.slug === 'arena-varejo') {
             arena.icon = varejoIcon;
             arena.class = 'varejo';
-            arena.description = 'lorem ipsum dolor sit ';
+            arena.description = 'Tendências, tecnologias e o que vai ser do futuro do varejo.';
             arena.room = '/room/varejoroom';
             arena.sroom = '/sroom/varejoroom';
+            arena.palestra = palestra4;
           }
 
           return arena;
@@ -117,7 +125,7 @@ export default function Lobby() {
             {arenas.map((arena) => (
               <MiniLive key={arena.slug}>
                 <Link to={isSpeaker ? arena.sroom : arena.room}>
-                  <img src={felipe} alt="" />
+                  <img src={arena.palestra} alt="" />
                 </Link>
               </MiniLive>
             ))}
