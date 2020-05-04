@@ -21,7 +21,10 @@ import Live from '~/assets/pageArena/real_time.svg';
 import Epoca from '~/assets/pageArena/epoca.png';
 import Pegn from '~/assets/pageArena/pegn.png';
 import Comentario from '~/assets/pageArena/comentario.png';
-import Speaker from '~/assets/pageArena/speaker.png';
+import palestrante1 from '~/assets/pageArena/palestrante1.png';
+import palestrante2 from '~/assets/pageArena/palestrante2.png';
+import palestrante3 from '~/assets/pageArena/palestrante3.png';
+import palestrante4 from '~/assets/pageArena/palestrante4.png';
 import Leftarrow from '~/assets/pageArena/left-arrow.png';
 import Rightarrow from '~/assets/pageArena/right-arrow.png';
 
@@ -86,7 +89,7 @@ export default function Arena() {
             <Slider>
               <Slide index={1}>
                 <div className="slide-wrapper">
-                  <Image src={Speaker} />
+                  <Image src={palestrante1} />
                   <div className="speaker-wrapper">
                     <span className="speaker-name">Carlos Abreu</span>
                     <span className="speaker-description">
@@ -98,7 +101,7 @@ export default function Arena() {
               </Slide>
               <Slide index={1}>
                 <div className="slide-wrapper">
-                  <Image src={Speaker} />
+                  <Image src={palestrante2} />
                   <div className="speaker-wrapper">
                     <span className="speaker-name">João Dias Andrade</span>
                     <span className="speaker-description">
@@ -110,7 +113,7 @@ export default function Arena() {
               </Slide>
               <Slide index={1}>
                 <div className="slide-wrapper">
-                  <Image src={Speaker} />
+                  <Image src={palestrante3} />
                   <div className="speaker-wrapper">
                     <span className="speaker-name">Mariana Amorim</span>
                     <span className="speaker-description">
@@ -122,7 +125,7 @@ export default function Arena() {
               </Slide>
               <Slide index={1}>
                 <div className="slide-wrapper">
-                  <Image src={Speaker} />
+                  <Image src={palestrante4} />
                   <div className="speaker-wrapper">
                     <span className="speaker-name">Denise Costa</span>
                     <span className="speaker-description">

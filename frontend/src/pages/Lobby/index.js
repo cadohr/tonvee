@@ -13,6 +13,8 @@ import varejoIcon from '~/assets/iconsMap/varejo.svg';
 import financasIcon from '~/assets/iconsMap/financas.svg';
 import inovacaoIcon from '~/assets/iconsMap/inovacao.svg';
 import placegolderShow from '~/assets/placeholders/placegolderShow.png';
+import placegolderChat from '~/assets/pageLobby/chatbarra.svg';
+
 import palestra1 from '~/assets/pageLobby/palestra1.png';
 import palestra2 from '~/assets/pageLobby/palestra2.png';
 import palestra3 from '~/assets/pageLobby/palestra3.png';

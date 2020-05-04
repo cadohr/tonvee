@@ -23,6 +23,7 @@ export const UserProfiler = styled.div`
   img {
     max-width: 45px;
     max-height: 45px;
+    border-radius: 50%;
   }
 `;
 
