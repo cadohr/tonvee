@@ -109,7 +109,7 @@ export default function Lobby() {
         </Text>
         <MusicLive>
           <img src={placegolderShow} alt="placeholder" />
-          <ChatBox />
+          <ChatBox RoomName="lobby" />
         </MusicLive>
       </LefContainer>
       <RightContainer>

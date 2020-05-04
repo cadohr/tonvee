@@ -1,26 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import TwilioChat from 'twilio-chat';
 import { toast } from 'react-toastify';
 
-import { store } from '~/store';
-import api from '~/services/api';
 import MessageList from './MessageList';
 import MessageForm from './MessageForm';
 
 export default function ChatBox({ RoomName }) {
-  const userStorage = store.getState().user;
+  const token = useSelector((state) => state.auth.accessToken);
+  let channel = null;
   const [messages, setMessages] = useState([]);
-  const [username] = useState(userStorage.profile.name);
-  const [token, setToken] = useState(null);
-  const [chatClient, setChatClient] = useState(null);
-  const [channel, setChannel] = useState(null);
+  const [chatClient, setChatClient] = useState({});
+  // const [channel, setChannel] = useState({});
+
+  useEffect(() => {
+    addMessage({ body: 'Connecting...' });
+    async function startedChat() {
+      const newChatClient = await new TwilioChat(token);
+      setChatClient(newChatClient);
+      createGeneralChannel(newChatClient)
+        .then(joinInChanel())
+        .then(configureChannelEvents())
+        .catch((error) => {
+          this.addMessage({ body: `Error: ${error.message}` });
+        });
+    }
+    startedChat();
+  });
 
   function addMessage(message) {
-    const messageData = {
-      ...message,
-      me: message.author === username,
-    };
-    setMessages([...messages, messageData]);
+    setMessages([...messages, message]);
   }
 
   async function getAllChanels() {
@@ -28,55 +37,56 @@ export default function ChatBox({ RoomName }) {
     return chanelList;
   }
 
-  async function createGeneralChannel() {
+  async function createGeneralChannel(chatClient) {
     addMessage({ body: 'Creating general channel...' });
+    return new Promise((resolve, reject) => {
+      chatClient
+        .createChannel({
+          uniqueName: `general-${RoomName}`,
+          friendlyName: 'General',
+        })
+        .then(async () => {
+          const joinChanel = await joinInChanel(`general-${RoomName}`);
 
-    const gerenalChat = await chatClient
-      .createChannel({
-        uniqueName: `general-${RoomName}`,
-        friendlyName: 'General',
-      })
-      .then(async () => {
-        const joinChanel = await joinInChanel(`general-${RoomName}`);
-
-        return joinChanel;
-      })
-      .catch(() => toast.error('Não foi possivel entrar na sala'));
-
-    return gerenalChat;
+          return joinChanel;
+        })
+        .catch(() => reject(toast.error('Não foi possivel entrar na sala')));
+    });
   }
 
   async function joinInChanel(chanelName = null) {
     const defaultName = chanelName ? chanelName : `general-${RoomName}`;
-    const enterRoom = await chatClient
-      .getSubscribedChannels()
-      .then(() => {
-        chatClient
-          .getChannelByUniqueName(defaultName)
-          .then((currentChannel) => {
-            addMessage({ body: 'Joining general channel...' });
-            setChannel(currentChannel);
+    return new Promise((resolve, reject) => {
+      chatClient
+        .getSubscribedChannels()
+        .then(() => {
+          chatClient
+            .getChannelByUniqueName(defaultName)
+            .then((currentChannel) => {
+              addMessage({ body: 'Joining general channel...' });
+              channel = currentChannel;
 
-            currentChannel
-              .join()
-              .then(() => {
-                addMessage({
-                  body: `Joined ${defaultName} channel as ${username}`,
-                });
-                window.addEventListener('beforeunload', () =>
-                  currentChannel.leave(),
-                );
-              })
-              .catch(() => toast.error('Não foi possivel entrar na sala'));
-          })
-          .catch(async () => {
-            const newChanel = await createGeneralChannel(chatClient);
-            return newChanel;
-          });
-      })
-      .catch(() => toast.error('Não foi possivel entrar na sala'));
+              currentChannel
+                .join()
+                .then(() => {
+                  addMessage({
+                    body: `Joined ${defaultName} channel`,
+                  });
+                  window.addEventListener('beforeunload', () =>
+                    currentChannel.leave(),
+                  );
+                })
+                .catch(() => toast.error('Não foi possivel entrar na sala'));
 
-    return enterRoom;
+              resolve(currentChannel);
+            })
+            .catch(async () => {
+              const newChanel = await createGeneralChannel(chatClient);
+              return newChanel;
+            });
+        })
+        .catch(() => reject(toast.error('Não foi possivel entrar na sala')));
+    });
   }
 
   function configureChannelEvents() {
@@ -94,23 +104,11 @@ export default function ChatBox({ RoomName }) {
   }
 
   function handleNewMessage(text) {
+    console.log(`handleNewMessage: ${channel}`);
     if (channel) {
       channel.sendMessage(text);
     }
   }
-
-  useEffect(() => {
-    addMessage({ body: 'Connecting...' });
-    async function getToken(username) {
-      const data = await api.get('/token', { username });
-      setToken(data);
-      const newChatClient = await new TwilioChat(token.jwt);
-      setChatClient(newChatClient);
-      await joinInChanel();
-      configureChannelEvents();
-    }
-    getToken(username);
-  }, []);
 
   return (
     <>
