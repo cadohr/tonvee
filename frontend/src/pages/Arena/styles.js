@@ -133,6 +133,7 @@ export const Information = styled.div`
 
         .title-info-content {
           display: flex;
+          justify-content: center;
           flex-direction: column;
 
           .lecture {
@@ -144,6 +145,17 @@ export const Information = styled.div`
 
             strong {
               color: #94d4d3;
+            }
+
+            a {
+              color: white;
+              border: 1px solid #f28719;
+              border-radius: 4px;
+              background: #f28719;
+              font-size: 14px;
+              font-weight: bold;
+              padding: 0 5px;
+              margin-left: 10px;
             }
           }
         }

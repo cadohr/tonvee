@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import {
   CarouselProvider,
@@ -49,15 +49,19 @@ export default function Arena() {
       data.description =
         'Este espaço destina-se a promover mais inovação por meio da colaboração e da cooperação entre empresas e indústrias, instituições de pesquisa e desenvolvimento e o setor público. Tem como público-alvo as comunidades empresariais regionais que possuem negóco';
       if (data.slug === 'arena-tech') {
+        data.room = 'techroom';
       }
 
       if (data.slug === 'arena-inovacao') {
+        data.room = 'inovacaoroom';
       }
 
       if (data.slug === 'arena-varejo') {
+        data.room = 'varejoroom';
       }
 
       if (data.slug === 'arena-financas') {
+        data.room = 'financasroom';
       }
 
       setArena(data);
@@ -174,12 +178,15 @@ export default function Arena() {
               <span className="lecture">
                 <strong>Palestra:</strong> 8h00 - Estratégias de transformação
                 digital
+                <Link to={`/room/${arena.room}`}>assistir</Link>
               </span>
               <span className="lecture">
                 <strong>Palestra:</strong> 9h00 - Startups
+                <Link to={`/room/${arena.room}`}>assistir</Link>
               </span>
               <span className="lecture">
                 <strong>Palestra:</strong> 10h30 - Criando canvas
+                <Link to={`/room/${arena.room}`}>assistir</Link>
               </span>
             </div>
           </div>

@@ -1,119 +1,79 @@
-import React, { Component, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import TwilioChat from 'twilio-chat';
-import { toast } from 'react-toastify';
+
+import { Form } from '@unform/web';
+
+import { Input } from '~/components/Form';
 
 import MessageList from './MessageList';
-import MessageForm from './MessageForm';
 
 export default function ChatBox({ RoomName }) {
   const token = useSelector((state) => state.auth.accessToken);
-  let channel = null;
   const [messages, setMessages] = useState([]);
-  const [chatClient, setChatClient] = useState({});
-  // const [channel, setChannel] = useState({});
+  const [channel, setChannel] = useState();
 
   useEffect(() => {
     addMessage({ body: 'Connecting...' });
     async function startedChat() {
-      const newChatClient = await new TwilioChat(token);
-      setChatClient(newChatClient);
-      createGeneralChannel(newChatClient)
-        .then(joinInChanel())
-        .then(configureChannelEvents())
-        .catch((error) => {
-          this.addMessage({ body: `Error: ${error.message}` });
+      const client = await TwilioChat.create(token);
+      const channelName = `general-${RoomName}`;
+
+      let chan;
+      if (!(chan = await client.getChannelByUniqueName(channelName))) {
+        chan = await client.createChannel({
+          uniqueName: channelName,
+          friendlyName: 'General',
         });
+      }
+
+      await chan.join();
+      setChannel(chan);
+
+      addMessage({
+        body: `Joined ${channelName} channel`,
+      });
+
+      chan.on('messageAdded', ({ author, body }) => {
+        addMessage({ author, body });
+      });
+
+      chan.on('memberJoined', (member) => {
+        addMessage({ body: `${member.identity} has joined the channel.` });
+      });
+
+      chan.on('memberLeft', (member) => {
+        addMessage({ body: `${member.identity} has left the channel.` });
+      });
     }
+
     startedChat();
-  });
+
+    return () => {
+      window.addEventListener('beforeunload', () => channel.leave());
+    };
+  }, []);
 
   function addMessage(message) {
     setMessages([...messages, message]);
   }
 
-  async function getAllChanels() {
-    const chanelList = await chatClient.getPublicChannelDescriptors();
-    return chanelList;
-  }
+  function handleNewMessage({ message }, { reset }) {
+    channel.sendMessage(message);
 
-  async function createGeneralChannel(chatClient) {
-    addMessage({ body: 'Creating general channel...' });
-    return new Promise((resolve, reject) => {
-      chatClient
-        .createChannel({
-          uniqueName: `general-${RoomName}`,
-          friendlyName: 'General',
-        })
-        .then(async () => {
-          const joinChanel = await joinInChanel(`general-${RoomName}`);
-
-          return joinChanel;
-        })
-        .catch(() => reject(toast.error('Não foi possivel entrar na sala')));
-    });
-  }
-
-  async function joinInChanel(chanelName = null) {
-    const defaultName = chanelName ? chanelName : `general-${RoomName}`;
-    return new Promise((resolve, reject) => {
-      chatClient
-        .getSubscribedChannels()
-        .then(() => {
-          chatClient
-            .getChannelByUniqueName(defaultName)
-            .then((currentChannel) => {
-              addMessage({ body: 'Joining general channel...' });
-              channel = currentChannel;
-
-              currentChannel
-                .join()
-                .then(() => {
-                  addMessage({
-                    body: `Joined ${defaultName} channel`,
-                  });
-                  window.addEventListener('beforeunload', () =>
-                    currentChannel.leave(),
-                  );
-                })
-                .catch(() => toast.error('Não foi possivel entrar na sala'));
-
-              resolve(currentChannel);
-            })
-            .catch(async () => {
-              const newChanel = await createGeneralChannel(chatClient);
-              return newChanel;
-            });
-        })
-        .catch(() => reject(toast.error('Não foi possivel entrar na sala')));
-    });
-  }
-
-  function configureChannelEvents() {
-    channel.on('messageAdded', ({ author, body }) => {
-      addMessage({ author, body });
-    });
-
-    channel.on('memberJoined', (member) => {
-      addMessage({ body: `${member.identity} has joined the channel.` });
-    });
-
-    channel.on('memberLeft', (member) => {
-      addMessage({ body: `${member.identity} has left the channel.` });
-    });
-  }
-
-  function handleNewMessage(text) {
-    console.log(`handleNewMessage: ${channel}`);
-    if (channel) {
-      channel.sendMessage(text);
-    }
+    reset();
   }
 
   return (
     <>
       <MessageList messages={messages} />
-      <MessageForm onMessageSend={handleNewMessage()} />
+
+      <Form className="MessageForm" onSubmit={handleNewMessage}>
+        <Input type="text" name="message" placeholder="Enter your message..." />
+        <div className="button-container">
+          <button type="submit">Enviar</button>
+        </div>
+      </Form>
     </>
   );
 }

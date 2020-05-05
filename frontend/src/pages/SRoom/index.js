@@ -15,22 +15,39 @@ const config = {
 
 export default function Room() {
   const videoRef = useRef(null);
+  const shareRef = useRef(null);
   const isSpeaker = useSelector(
     (state) => state.user.profile.type === 'speaker',
   );
 
+  function handleShareScreen() {
+    navigator.mediaDevices
+      .getUserMedia({
+        audio: false,
+        video: {
+          mandatory: {
+            chromeMediaSource: 'screen',
+            maxWidth: 1280,
+            maxHeight: 720,
+          },
+        },
+      })
+      .then((stream) => (shareRef.current.srcObject = stream))
+      .catch((err) => console.log(err));
+  }
+
   useEffect(() => {
     const videoRefCurrent = videoRef.current;
 
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-        video: true,
-      })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        socket.emit('speaker');
-      });
+    // navigator.mediaDevices
+    //   .getUserMedia({
+    //     audio: true,
+    //     video: true,
+    //   })
+    //   .then((stream) => {
+    //     videoRef.current.srcObject = stream;
+    //     socket.emit('speaker');
+    //   });
 
     return () => {
       let stream = videoRefCurrent.srcObject;
@@ -97,6 +114,9 @@ export default function Room() {
         muted={true}
         ref={videoRef}
       />
+
+      <video ref={shareRef} />
+      <button onClick={handleShareScreen}>Share Screen</button>
     </Container>
   );
 }
